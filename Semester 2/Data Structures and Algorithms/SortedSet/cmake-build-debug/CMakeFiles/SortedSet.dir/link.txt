@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/SortedSet.dir/App.cpp.o CMakeFiles/SortedSet.dir/ExtendedTest.cpp.o CMakeFiles/SortedSet.dir/ShortTest.cpp.o CMakeFiles/SortedSet.dir/SortedSet.cpp.o CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.o  -o SortedSet 

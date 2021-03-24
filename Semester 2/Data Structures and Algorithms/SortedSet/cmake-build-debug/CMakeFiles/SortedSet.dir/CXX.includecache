@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kida/Documents/data structures/SortedSet/ShortTest.cpp
+ShortTest.h
+/home/kida/Documents/data structures/SortedSet/ShortTest.h
+SortedSet.h
+/home/kida/Documents/data structures/SortedSet/SortedSet.h
+SortedSetIterator.h
+/home/kida/Documents/data structures/SortedSet/SortedSetIterator.h
+assert.h
+-
+cstdio
+-
+
+/home/kida/Documents/data structures/SortedSet/ShortTest.h
+
+/home/kida/Documents/data structures/SortedSet/SortedSet.h
+
+/home/kida/Documents/data structures/SortedSet/SortedSetIterator.h
+SortedSet.h
+/home/kida/Documents/data structures/SortedSet/SortedSet.h
+
