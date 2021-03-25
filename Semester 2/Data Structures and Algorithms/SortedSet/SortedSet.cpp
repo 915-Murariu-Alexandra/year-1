@@ -3,16 +3,14 @@
 #include "SortedSetIterator.h"
 
 SortedSet::SortedSet(Relation r) {
-	//TODO - Implementation!
 	this->relation = r;
 	this->nrElems = 0;
 	this->capacity = 10;
     this->elements = new TComp[capacity];
 }
-
+// Theta(1)
 
 bool SortedSet::add(TComp elem) {
-	//TODO - Implementation!
 	if(this->capacity == this->nrElems) {
         this->resize();
 	}
@@ -33,10 +31,9 @@ bool SortedSet::add(TComp elem) {
 	nrElems++;
 	return true;
 }
-
+// Best case: Theta(1), Worst case: Theta(nrElems) => Total complexity: O(nrElems)
 
 bool SortedSet::remove(TComp elem) {
-	//TODO - Implementation!
 	int pos = get_position(elem);
 	if(pos == -1) {
 	    return false;
@@ -47,10 +44,10 @@ bool SortedSet::remove(TComp elem) {
 	nrElems--;
 	return true;
 }
-
+// Best case: Theta(log2(nrElems)), Worst case: Theta(nrElems) => Total complexity: O(nrElems)
 
 bool SortedSet::search(TComp elem) const {
-	//TODO - Implementation!
+
 	int left = 0;
 	int right = nrElems-1;
 	while(left <= right) {
@@ -67,29 +64,31 @@ bool SortedSet::search(TComp elem) const {
 	}
 	return false;
 }
-
+// Best case: Theta(1), Worst case: Theta(log2(nrElems)) => Total complexity: O(log2(nrElems))
 
 int SortedSet::size() const {
-	//TODO - Implementation!
+
 	return nrElems;
 }
-
+// Theta(1)
 
 
 bool SortedSet::isEmpty() const {
-	//TODO - Implementation!
+
 	return nrElems == 0;
 }
+// Theta(1)
 
 SortedSetIterator SortedSet::iterator() const {
 	return SortedSetIterator(*this);
 }
-
+// Theta(1)
 
 SortedSet::~SortedSet() {
 	//TODO - Implementation!
 	delete[] this->elements;
 }
+// Theta(1)
 
 void SortedSet::resize() {
     auto newArr = new TComp[2 * capacity];
@@ -99,6 +98,7 @@ void SortedSet::resize() {
     this->elements = newArr;
     capacity *= 2;
 }
+// Theta(nrElems)
 
 int SortedSet::get_position(TComp elem) {
     int left = 0;
@@ -117,5 +117,4 @@ int SortedSet::get_position(TComp elem) {
     }
     return -1;
 }
-
-
+// Best case: Theta(1), Worst case: Theta(log2(nrElems)) => Total complexity: O(log2(nrElems))
