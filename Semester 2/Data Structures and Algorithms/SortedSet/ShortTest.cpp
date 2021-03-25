@@ -3,6 +3,7 @@
 #include "SortedSetIterator.h"
 #include <assert.h>
 #include <cstdio>
+#include <iostream>
 
 bool r2(TComp e1, TComp e2) {
 	if (e1 <= e2) {
@@ -18,14 +19,12 @@ void testAll() {
 	int vverif[5];
 	int iverif;
 	TComp e;
-
 	SortedSet s1(r2);
 	assert(s1.add(5) == true);
 	assert(s1.add(1) == true);
 	assert(s1.add(10) == true);
 	SortedSetIterator it1 = s1.iterator();
 	it1.first();
-	printf("%d", it1.getCurrent());
 	e = it1.getCurrent();
 	iverif = 0;
 	vverif[iverif++] = e;
@@ -68,7 +67,6 @@ void testAll() {
 		vverif[iverif++] = e;
 		it.next();
 	}
-	assert((vverif[0] == -3) && (vverif[1] == 5) && (vverif[2] == 7) && (vverif[3] == 10));
+    assert((vverif[0] == -3) && (vverif[1] == 5) && (vverif[2] == 7) && (vverif[3] == 10));
 
 }
-

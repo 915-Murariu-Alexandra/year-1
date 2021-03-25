@@ -6,17 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/kida/Documents/data structures/SortedSet/ShortTest.cpp
+/home/kida/Documents/data structures/SortedSet/App.cpp
 ShortTest.h
 /home/kida/Documents/data structures/SortedSet/ShortTest.h
+ExtendedTest.h
+/home/kida/Documents/data structures/SortedSet/ExtendedTest.h
 SortedSet.h
 /home/kida/Documents/data structures/SortedSet/SortedSet.h
 SortedSetIterator.h
 /home/kida/Documents/data structures/SortedSet/SortedSetIterator.h
-assert.h
+iostream
 -
-cstdio
--
+
+/home/kida/Documents/data structures/SortedSet/ExtendedTest.h
 
 /home/kida/Documents/data structures/SortedSet/ShortTest.h
 

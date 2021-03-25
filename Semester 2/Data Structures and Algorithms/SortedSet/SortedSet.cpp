@@ -1,3 +1,4 @@
+#include <iostream>
 #include "SortedSet.h"
 #include "SortedSetIterator.h"
 
@@ -5,7 +6,8 @@ SortedSet::SortedSet(Relation r) {
 	//TODO - Implementation!
 	this->relation = r;
 	this->nrElems = 0;
-	this->capacity = 1;
+	this->capacity = 10;
+    this->elements = new TComp[capacity];
 }
 
 
@@ -18,13 +20,16 @@ bool SortedSet::add(TComp elem) {
 	    if(this->elements[index] == elem) {
 	        return false;
 	    }
-	    else if(!this->relation(elem, this->elements[index])) {
-	        for(int j = index+1; j <= this->nrElems; j++) {
+	    else if(this->relation(elem, this->elements[index])) {
+	        for(int j = nrElems; j > index; j--) {
                 this->elements[j] = this->elements[j-1];
 	        }
 	        this->elements[index] = elem;
+            nrElems++;
+	        return true;
 	    }
 	}
+	this->elements[nrElems] = elem;
 	nrElems++;
 	return true;
 }
@@ -47,7 +52,7 @@ bool SortedSet::remove(TComp elem) {
 bool SortedSet::search(TComp elem) const {
 	//TODO - Implementation!
 	int left = 0;
-	int right = nrElems - 1;
+	int right = nrElems-1;
 	while(left <= right) {
 	    int m = (left + right) / 2;
 	    if(this->elements[m] == elem) {
