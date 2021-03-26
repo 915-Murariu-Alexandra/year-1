@@ -41,10 +41,14 @@ class Graph:
         return 0
 
     def parse_outbound_edges(self, vertex):
-        return iter(self._dict_out[vertex]) if vertex in self._dict_out.keys() else iter([])
+        if vertex not in self._dict_out.keys():
+            raise Exception("No outbound edges for this vertex")
+        return iter(self._dict_out[vertex])
 
     def parse_inbound_edges(self, vertex):
-        return iter(self._dict_in[vertex]) if vertex in self._dict_in.keys() else iter([])
+        if vertex not in self._dict_in.keys():
+            raise Exception("No inbound edges for this vertex")
+        return iter(self._dict_in[vertex])
 
     def modify_cost(self, node_in, node_out, new_cost):
         self._dict_cost[(node_in, node_out)] = new_cost
