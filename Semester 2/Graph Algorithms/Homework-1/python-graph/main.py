@@ -1,13 +1,29 @@
+import copy
+
+
 class Graph:
-    def __init__(self, n=0, m=0):
+    def __init__(self, n=0, m=0, nodes=None, dict_in=None, dict_out=None, dict_cost=None):
+        if dict_cost is None:
+            dict_cost = {}
+        if dict_out is None:
+            dict_out = {}
+        if dict_in is None:
+            dict_in = {}
+        if nodes is None:
+            nodes = []
         self._nr_of_vertices = n
         self._nr_of_edges = m
-        self._dict_in = {}
-        self._dict_out = {}
-        self._dict_cost = {}
+        self._list_of_nodes = nodes
+        self._dict_in = dict_in
+        self._dict_out = dict_out
+        self._dict_cost = dict_cost
+
+    def copy_graph(self):
+        return Graph(self._nr_of_vertices, self._nr_of_edges, self.parse_vertices(), copy.deepcopy(self.get_dict_in()),
+                     copy.deepcopy(self.get_dict_out()), copy.deepcopy(self.get_dict_cost()))
 
     def parse_vertices(self):
-        return range(self._nr_of_vertices)
+        return iter(self._list_of_nodes)
 
     def is_edge(self, node_in, node_out):
         if (node_in, node_out) in self._dict_cost.keys():
@@ -25,10 +41,10 @@ class Graph:
         return 0
 
     def parse_outbound_edges(self, vertex):
-        return [i for i in self._dict_out[vertex]]
+        return iter(self._dict_out[vertex]) if vertex in self._dict_out.keys() else iter([])
 
     def parse_inbound_edges(self, vertex):
-        return [i for i in self._dict_in[vertex]]
+        return iter(self._dict_in[vertex]) if vertex in self._dict_in.keys() else iter([])
 
     def modify_cost(self, node_in, node_out, new_cost):
         self._dict_cost[(node_in, node_out)] = new_cost
@@ -46,6 +62,7 @@ class Graph:
             else:
                 self._dict_in[node_out].append(node_in)
             self._dict_cost[(node_in, node_out)] = cost
+            self._nr_of_edges += 1
 
     def remove_edge(self, node_in, node_out):
         if (node_in, node_out) not in self._dict_cost.keys():
@@ -53,23 +70,51 @@ class Graph:
         self._dict_in[node_out].remove(node_in)
         self._dict_out[node_in].remove(node_out)
         del self._dict_cost[(node_in, node_out)]
+        self._nr_of_edges -= 1
 
     def add_node(self, vertex):
-        if vertex in self._dict_in.keys() or vertex in self._dict_out.keys():
-            raise Exception("Vertex already exists.")
 
+        if vertex not in self._list_of_nodes:
+            self._nr_of_vertices += 1
+            self._list_of_nodes.append(vertex)
+            return
+        else:
+            raise Exception("The vertex to add is not valid.")
+
+    def remove_node(self, vertex):
+
+        if vertex not in self._list_of_nodes:
+            raise Exception("The vertex to remove doesn't exist.")
+
+        else:
+            if vertex in self._dict_in.keys():
+                for node in self.parse_inbound_edges(vertex):
+                    self._dict_in[vertex].remove(node)
+                    if node in self._dict_out.keys():
+                        self._dict_out[node].remove(vertex)
+                    del self._dict_cost[(node, vertex)]
+                    self._nr_of_edges -= 1
+            if vertex in self._dict_out.keys():
+                for node in self.parse_outbound_edges(vertex):
+                    if node in self._dict_in.keys():
+                        self._dict_in[node].remove(vertex)
+                    self._dict_out[vertex].remove(node)
+                    del self._dict_cost[(vertex, node)]
+                    self._nr_of_edges -= 1
+            self._nr_of_vertices -= 1
+            self._list_of_nodes.remove(vertex)
 
     def read_from_file(self, file_name):
         with open(file_name) as f:
             content = f.read().splitlines()
 
-        self._nr_of_vertices = content[0].split()[0]
-        self._nr_of_edges = content[0].split()[1]
+        self._nr_of_vertices = int(content[0].split()[0])
+        self._nr_of_edges = int(content[0].split()[1])
 
         for index in range(1, len(content)):
-            node_1 = content[index].split()[0]
-            node_2 = content[index].split()[1]
-            cost = content[index].split()[2]
+            node_1 = int(content[index].split()[0])
+            node_2 = int(content[index].split()[1])
+            cost = int(content[index].split()[2])
             if node_2 not in self._dict_in.keys():
                 self._dict_in[node_2] = [node_1]
             else:
@@ -81,6 +126,7 @@ class Graph:
                 self._dict_out[node_1].append(node_2)
 
             self._dict_cost[(node_1, node_2)] = cost
+        self._list_of_nodes = [i for i in range(self._nr_of_vertices)]
 
     def write_to_file(self, file_name):
         f = open(file_name, "w")
@@ -89,7 +135,7 @@ class Graph:
         for key, value in self._dict_out.items():
             for vertex in value:
                 f.write(str(key) + " " + str(vertex) + " " + str(self._dict_cost[(key, vertex)]) + "\n")
-                
+
     def get_nr_of_vertices(self):
         return self._nr_of_vertices
 
@@ -115,9 +161,10 @@ class Graph:
 if __name__ == "__main__":
     g = Graph()
     g.read_from_file("graph.txt")
-    g.add_edge("0", "3", 5)
-    g.remove_edge("0", "3")
-    g.remove_edge("0", "0")
-    g.remove_edge("0", "1")
-    g.add_edge("0", "3", 4)
+    g.add_edge(0, 3, 4)
+    h = g.copy_graph()
+    h.add_edge(3, 4, 2)
+    g.remove_node(2)
     g.write_to_file("new_file.txt")
+    for i in g.parse_vertices():
+        print(i)
