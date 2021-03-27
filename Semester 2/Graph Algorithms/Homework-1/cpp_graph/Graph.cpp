@@ -2,10 +2,12 @@
 // Created by kida on 3/27/21.
 //
 #define MAX_COST 20
+
 #include "Graph.h"
 #include <fstream>
 #include <iostream>
 #include <random>
+
 void Graph::read_from_file(const std::string &name) {
     std::ifstream new_file;
     new_file.open(name.c_str());
@@ -23,6 +25,9 @@ void Graph::read_from_file(const std::string &name) {
             this->dict_out[node_1].push_back(node_2);
             this->dict_cost.insert({new_edge, cost});
         }
+        for (int i = 0; i < n; i++) {
+            this->vertices.push_back(i);
+        }
         new_file.close();
     } else {
         throw std::runtime_error("The file doesn't exist");
@@ -36,6 +41,10 @@ void Graph::write_to_file(const std::string &name) {
         new_file << std::to_string(this->nr_of_vertices) << " " << std::to_string(this->nr_of_edges) << "\n";
         for (std::pair<edge, int> element : this->dict_cost) {
             new_file << element.first.first << " " << element.first.second << " " << element.second << "\n";
+        }
+        new_file << "Remaining vertices are: ";
+        for (node vertex : this->vertices) {
+            new_file << vertex << " ";
         }
     } else {
         throw std::runtime_error("The file couldn't be opened");
@@ -106,10 +115,17 @@ void Graph::add_edge(node node_1, node node_2, int cost) {
 
 void Graph::add_node() {
     this->nr_of_vertices += 1;
+    this->vertices.push_back(this->nr_of_vertices);
 }
 
 void Graph::delete_node(node vertex) {
-    if (vertex < 0 || vertex > this->nr_of_vertices) {
+    bool found = false;
+    for(int i = 0; i < this->vertices.size(); i++){
+        if(vertices[i] == vertex){
+            found = true;
+        }
+    }
+    if (vertex < 0 || vertex > this->nr_of_vertices || !found) {
         throw std::runtime_error("The vertex to remove is not valid.");
     } else {
         this->dict_out[vertex].clear();
@@ -131,6 +147,15 @@ void Graph::delete_node(node vertex) {
                 ++it;
             }
         }
+        for(auto it = this->vertices.begin(); it != this->vertices.end();){
+            if(*it == vertex) {
+                this->vertices.erase(it);
+                break;
+            }
+            else {
+                ++it;
+            }
+        }
     }
 }
 
@@ -140,20 +165,32 @@ Graph Graph::random_graph(int n, int m) {
     unsigned int cost;
     g.nr_of_edges = n;
     g.nr_of_vertices = m;
-    if(m > n*(n-1)){
+    for(int i = 0; i < n; i++) {
+        g.vertices.push_back(i);
+    }
+    if (m > n * (n - 1)) {
         throw std::runtime_error("Such a graph cannot be composed.");
     }
-    while(m > 0) {
+    while (m > 0) {
         std::random_device rd;
         node_1 = rd() % n;
         node_2 = rd() % n;
         cost = rd() % MAX_COST;
-        if(!g.is_edge(node_1, node_2)) {
+        if (!g.is_edge(node_1, node_2) && node_1 != node_2)  {
             g.add_edge(node_1, node_2, cost);
             m--;
         }
     }
     return g;
+}
+
+bool Graph::is_vertex(node vertex) {
+    for(int i = 0; i < this->nr_of_vertices; i++) {
+        if(this->vertices[i] == vertex) {
+            return true;
+        }
+    }
+    return false;
 }
 
 

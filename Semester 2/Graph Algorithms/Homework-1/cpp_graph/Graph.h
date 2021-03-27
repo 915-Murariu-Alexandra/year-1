@@ -20,14 +20,18 @@ private:
     std::map<node, std::vector<node>> dict_in;
     std::map<node, std::vector<node>> dict_out;
     std::map<edge, int> dict_cost;
+    std::vector<node> vertices;
 public:
     Graph() = default;
 
     int get_nr_of_vertices() const { return this->nr_of_vertices; };
+    int get_nr_of_edges() const { return this->nr_of_edges;};
 
     std::map<node, std::vector<node>> get_dict_in() { return this->dict_in; };
 
     std::map<node, std::vector<node>> get_dict_out() { return this->dict_out; };
+
+    std::vector<node> get_vertices() { return this->vertices;};
 
     std::map<edge, int> get_dict_cost() { return this->dict_cost; };
 
@@ -45,6 +49,12 @@ public:
         auto it = this->dict_cost.begin();
         return it;
     };
+
+    auto get_vertices_iterator() {
+        auto it_begin = this->vertices.begin();
+        auto it_end = this->vertices.end();
+        return std::pair<std::vector<node>::iterator, std::vector<node>::iterator>(it_begin, it_end);
+    }
 
     void read_from_file(const std::string &);
 
@@ -67,8 +77,9 @@ public:
     void delete_node(node);
 
     Graph(const Graph &g) { nr_of_vertices = g.get_nr_of_vertices(), nr_of_edges = g.nr_of_edges, dict_in = g.dict_in,
-                            dict_out = g.dict_out, dict_cost = g.dict_cost; };
+                            dict_out = g.dict_out, dict_cost = g.dict_cost, vertices = g.vertices; };
     static Graph random_graph(int, int);
+    bool is_vertex(node);
 };
 
 
