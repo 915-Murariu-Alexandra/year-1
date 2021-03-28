@@ -98,7 +98,7 @@ class Graph:
             if vertex in self._dict_in.keys():
                 inbound_edges = [i for i in self._dict_in[vertex]]
                 for node in inbound_edges:
-                    print(self._dict_in[vertex])
+
                     self._dict_in[vertex].remove(node)
                     if node in self._dict_out.keys():
                         self._dict_out[node].remove(vertex)
@@ -173,4 +173,7 @@ class Graph:
         for key, value in self._dict_out.items():
             for node in value:
                 graph_str += str(key) + " " + str(node) + " " + str(self._dict_cost[(key, node)]) + "\n"
+        graph_str += "Remaining nodes: "
+        for node in self._list_of_nodes:
+            graph_str += str(node) + " "
         return graph_str

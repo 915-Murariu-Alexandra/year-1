@@ -243,18 +243,16 @@ class Console:
         except ValueError:
             print("These should be integer numbers. Please try again!")
             return
-        if int(m) > int(n)*(int(n)+1):
+        if int(m) > int(n) * (int(n) - 1):
             print("We cannot construct a graph like this. Please try again!")
+            return
         elif int(m) < 0 or int(n) < 0:
             print("The numbers should be positive.")
         int_m = int(m)
         int_n = int(n)
         h = Graph(int_n, 0, [i for i in range(int(n))])
-        all_edges = [[i, j] for i in range(int_n) for j in range(int_n)]
-        print(len(all_edges))
-        edge = random.choice(all_edges)
-        print(edge)
-        '''
+        all_edges = [[i, j] for i in range(int_n) for j in range(int_n) if i != j]
+
         while int_m > 0:
             edge = random.choice(all_edges)
             all_edges.remove(edge)
@@ -264,4 +262,3 @@ class Console:
 
         print(str(h))
         h.write_to_file("random_graph2.txt")
-        '''

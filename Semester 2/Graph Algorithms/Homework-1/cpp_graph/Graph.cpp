@@ -163,8 +163,8 @@ Graph Graph::random_graph(int n, int m) {
     Graph g;
     node node_1, node_2;
     unsigned int cost;
-    g.nr_of_edges = n;
-    g.nr_of_vertices = m;
+    g.nr_of_vertices = n;
+    g.nr_of_edges = m;
     for(int i = 0; i < n; i++) {
         g.vertices.push_back(i);
     }
