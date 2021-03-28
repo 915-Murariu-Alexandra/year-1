@@ -57,6 +57,8 @@ bool Console::read_options() {
         return true;
     }
     auto vertices_iterator = graph.get_vertices_iterator();
+    std::pair<std::vector<node>::iterator, std::vector<node>::iterator> inbound_iterator;
+    std::pair<std::vector<node>::iterator, std::vector<node>::iterator> outbound_iterator;
     Graph h;
     std::string name_of_file;
     switch (option) {
@@ -70,6 +72,45 @@ bool Console::read_options() {
             for (; vertices_iterator.first != vertices_iterator.second;) {
                 cout << *vertices_iterator.first << " ";
                 ++vertices_iterator.first;
+            }
+            return true;
+        case PARSE_INBOUND_EDGES:
+            node vertex;
+            cout << "What is the node you wish to parse?\n";
+            cin >> vertex;
+            if(!graph.is_vertex(vertex)){
+                cout << "The vertex is invalid.\n";
+                return true;
+            }
+            try{
+                inbound_iterator = graph.get_dict_in_iterator(vertex);
+                for(; inbound_iterator.first != inbound_iterator.second;){
+                    cout << *inbound_iterator.first << " " << vertex << "\n";
+                    ++inbound_iterator.first;
+                }
+            }
+            catch(std::out_of_range){
+                cout << "The vertex doesn't have inbound neighbors.\n";
+                return true;
+            }
+            return true;
+        case PARSE_OUTBOUND_EDGES:
+            cout << "What is the node you wish to parse?\n";
+            cin >> vertex;
+            if(!graph.is_vertex(vertex)){
+                cout << "The vertex is invalid.\n";
+                return true;
+            }
+            try{
+                outbound_iterator = graph.get_dict_out_iterator(vertex);
+                for(; outbound_iterator.first != outbound_iterator.second;){
+                    cout << vertex << " " << *outbound_iterator.first << "\n";
+                    ++outbound_iterator.first;
+                }
+            }
+            catch(std::out_of_range){
+                cout << "The vertex doesn't have outbound edges.\n";
+                return true;
             }
             return true;
         case FIND_IF_EDGE_EXISTS:
@@ -86,7 +127,6 @@ bool Console::read_options() {
             }
             return true;
         case GET_DEGREE:
-            node vertex;
             cout << "What is the vertex?\n";
             cin >> vertex;
             if (!graph.is_vertex(vertex)) {

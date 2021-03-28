@@ -36,13 +36,17 @@ public:
     std::map<edge, int> get_dict_cost() { return this->dict_cost; };
 
     auto get_dict_in_iterator(node vertex) {
-        auto it = this->dict_in.at(vertex).begin();
-        return it;
+        auto it_begin = this->dict_in.at(vertex).begin();
+        auto it_end = this->dict_in.at(vertex).end();
+        return std::pair<std::vector<node>::iterator, std::vector<node>::iterator>(it_begin, it_end);
     };
 
     auto get_dict_out_iterator(node vertex) {
-        auto it = this->dict_out.at(vertex).begin();
-        return it;
+
+        auto it_begin = this->dict_out.at(vertex).begin();
+        auto it_end = this->dict_out.at(vertex).end();
+        return std::pair<std::vector<node>::iterator, std::vector<node>::iterator>(it_begin, it_end);
+
     };
 
     std::map<edge, int>::iterator get_dict_cost_iterator() {
