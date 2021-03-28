@@ -59,6 +59,9 @@ bool Graph::is_edge(node node_1, node node_2) {
 }
 
 int Graph::in_degree(node vertex) {
+    if(!is_vertex(vertex)){
+        throw std::runtime_error("The vertex doesn't exist.");
+    }
     if (dict_in.count(vertex) != 0) {
         return dict_in.at(vertex).size();
     }
@@ -66,6 +69,9 @@ int Graph::in_degree(node vertex) {
 }
 
 int Graph::out_degree(node vertex) {
+    if(!is_vertex(vertex)){
+        throw std::runtime_error("The vertex doesn't exist.");
+    }
     if (dict_out.count(vertex) != 0) {
         return dict_out.at(vertex).size();
     }
@@ -113,9 +119,14 @@ void Graph::add_edge(node node_1, node node_2, int cost) {
     }
 }
 
-void Graph::add_node() {
-    this->nr_of_vertices += 1;
-    this->vertices.push_back(this->nr_of_vertices);
+void Graph::add_node(node vertex) {
+    if(!is_vertex(vertex)){
+        this->vertices.push_back(vertex);
+        this->nr_of_vertices += 1;
+    }
+    else {
+        throw std::runtime_error("The node already exists.\n");
+    }
 }
 
 void Graph::delete_node(node vertex) {
@@ -129,7 +140,7 @@ void Graph::delete_node(node vertex) {
         throw std::runtime_error("The vertex to remove is not valid.");
     } else {
         this->dict_out[vertex].clear();
-
+        this->nr_of_vertices--;
         for (std::pair<node, std::vector<node>> element : this->dict_in) {
             for (auto it = element.second.begin(); it != element.second.end();) {
                 if (*it == vertex) {
@@ -143,6 +154,7 @@ void Graph::delete_node(node vertex) {
         for (auto it = this->dict_cost.begin(); it != this->dict_cost.end();) {
             if (it->first.first == vertex || it->first.second == vertex) {
                 it = this->dict_cost.erase(it);
+                this->nr_of_edges--;
             } else {
                 ++it;
             }
@@ -191,6 +203,15 @@ bool Graph::is_vertex(node vertex) {
         }
     }
     return false;
+}
+
+int Graph::get_cost(node node_1, node node_2) {
+    if(!is_edge(node_1, node_2)){
+        throw std::runtime_error("The edge doesn't exist.");
+    }
+    else {
+        return this->dict_cost[std::pair<node, node>(node_1, node_2)];
+    }
 }
 
 

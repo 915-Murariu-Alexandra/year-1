@@ -13,6 +13,9 @@
 typedef int node;
 typedef std::pair<node, node> edge;
 
+/**
+ * Directed Graph class with 3 maps.
+ */
 class Graph {
 private:
     int nr_of_vertices{};
@@ -60,30 +63,115 @@ public:
         return std::pair<std::vector<node>::iterator, std::vector<node>::iterator>(it_begin, it_end);
     }
 
+    /**
+     * Function that reads a graph from a file.
+     * @throw if file doesn't exist
+     */
     void read_from_file(const std::string &);
 
-    void write_to_file(const std::string &);
+    /**
+     * Function that writes a graph to a given file.
+     * @param file_name: file path (std::string)
+     * @throw if file cannot be opened for writing
+     */
+    void write_to_file(const std::string & file_name);
 
-    bool is_edge(node, node);
+    /**
+     * Function that checks if two nodes are part of an edge.
+     * @param n1: first vertex (int)
+     * @param n2: second vertex (int)
+     * @return true if edge exists else false
+     */
+    bool is_edge(node n1, node n2);
 
-    int in_degree(node);
+    /**
+     * Function that returns the in-degree of a given vertex
+     * @param vertex an existing node (int)
+     * @throw if vertex doesn't exist
+     * @return the in-degree of the vertex (int)
+     */
+    int in_degree(node vertex);
 
+    /**
+     * Function that returns the out-degree of a given vertex
+     * @param vertex an existing node (int)
+     * @throw if vertex doesn't exist
+     * @return the out-degree of the vertex (int)
+     */
     int out_degree(node);
 
-    void modify_cost(node, node, int);
+    /**
+     * Function that modifies the cost of a given edge
+     * @param n1: first vertex
+     * @param n2: second vertex
+     * @param cost: the new cost of the edge
+     * @throw if edge (n1, n2) doesn't exist in the graph
+     */
+    void modify_cost(node n1, node n2, int cost);
 
-    void delete_edge(node, node);
+    /**
+     * Function that retrieves the cost of an edge
+     * @param n1: the first node from the edge
+     * @param n2: the second node from the edge
+     * @throw if edge (n1, n2) doesn't exist
+     * @return the cost of the edge (n1, n2) (int)
+     */
+    int get_cost(node n1, node n2);
 
-    void add_edge(node, node, int);
+    /**
+     * Function that deletes an existing edge
+     * @param n1: the first node from the edge
+     * @param n2: the second node from the edge
+     * @throw if edge (n1, n2) doesn't exist
+     */
+    void delete_edge(node n1, node n2);
 
-    void add_node();
+    /**
+     * Function that adds an edge to the graph
+     * @param n1: the first node from the edge
+     * @param n2: the second node from the edge
+     * @param cost: the cost of the new edge
+     * @throw if edge already exists or if nodes are invalid
+     */
+    void add_edge(node n1, node n2, int cost);
 
-    void delete_node(node);
+    /**
+     * Function that adds a new node to the graph
+     * @param n: the new node to be added
+     * @throw if node already exists
+     */
+    void add_node(node n);
 
+    /**
+     * Function that deletes an existing node from the graph, along with all edges connecting it to
+     * other edges
+     * @param n: the node to be deleted
+     * @throw if node doesn't exist
+     */
+    void delete_node(node n);
+
+    /**
+     * Copy constructor for the Graph class
+     * @param g: the graph to be copied
+     */
     Graph(const Graph &g) { nr_of_vertices = g.get_nr_of_vertices(), nr_of_edges = g.nr_of_edges, dict_in = g.dict_in,
                             dict_out = g.dict_out, dict_cost = g.dict_cost, vertices = g.vertices; };
-    static Graph random_graph(int, int);
-    bool is_vertex(node);
+
+    /**
+     * Static function that creates a random graph
+     * @param n: the number of vertices of the new graph
+     * @param m: the number of edges of the new graph
+     * @throw if graph cannot be composed (the number of edges is too big for how many vertices are)
+     * @return the new graph
+     */
+    static Graph random_graph(int n, int m);
+
+    /**
+     * Function that verifies if a given node index is in the graph
+     * @param n: the node to search for
+     * @return true if the node exists, false otherwise
+     */
+    bool is_vertex(node n);
 };
 
 

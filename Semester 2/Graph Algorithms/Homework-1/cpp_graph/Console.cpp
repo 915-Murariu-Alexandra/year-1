@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "Console.h"
 
 using namespace std;
@@ -21,6 +22,7 @@ enum option {
     REMOVE_NODE = 'k',
     MAKE_COPY = 'l',
     RANDOM_GRAPH = 'm',
+    GET_COST = 'n',
     EXIT = 'x'
 };
 
@@ -38,6 +40,7 @@ void Console::print_menu() {
     cout << "k. Remove a node.\n";
     cout << "l. Make a copy of the graph.\n";
     cout << "m. Create a random graph.\n";
+    cout << "n. Get the cost of an existing edge.\n";
     cout << "x. Exit the application.\n";
 }
 
@@ -61,12 +64,14 @@ bool Console::read_options() {
     std::pair<std::vector<node>::iterator, std::vector<node>::iterator> outbound_iterator;
     Graph h;
     std::string name_of_file;
+    std::string file_name;
     switch (option) {
         case EXIT:
+            graph.write_to_file("/home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph/graph1k_modif.txt");
             return false;
         case GET_NR_OF_VERTICES:
             print_graph(graph);
-            cout << this->graph.get_nr_of_vertices();
+            cout << "\nThe number of vertices is: " << this->graph.get_nr_of_vertices();
             return true;
         case PARSE_SET_OF_VERTICES:
             for (; vertices_iterator.first != vertices_iterator.second;) {
@@ -121,9 +126,23 @@ bool Console::read_options() {
             cin >> node_2;
             print_graph(graph);
             if (graph.is_edge(node_1, node_2)) {
-                cout << "This is an edge!\n";
+                cout << "\nThis is an edge!\n";
             } else {
-                cout << "This is not an edge!";
+                cout << "\nThis is not an edge!";
+            }
+            return true;
+        case GET_COST:
+            cout << "What is the first vertex of the edge?\n";
+            cin >> node_1;
+            cout << "What is the second vertex of the edge?\n";
+            cin >> node_2;
+            print_graph(graph);
+            try{
+                cout << "\nThe cost of the edge is: " << graph.get_cost(node_1, node_2) << "\n";
+            }
+            catch(std::runtime_error){
+                cout << "The edge doesn't exist.\n";
+                return true;
             }
             return true;
         case GET_DEGREE:
@@ -134,7 +153,7 @@ bool Console::read_options() {
                 return true;
             } else {
                 print_graph(graph);
-                cout << "The in-degree is: " << graph.in_degree(vertex) << " and the out-degree is "
+                cout << "\nThe in-degree is: " << graph.in_degree(vertex) << " and the out-degree is "
                      << graph.out_degree(vertex);
                 return true;
             }
@@ -160,7 +179,7 @@ bool Console::read_options() {
             cin >> node_1;
             cout << "What is the second vertex of the edge?\n";
             cin >> node_2;
-            cout << "What is the new cost?\n";
+            cout << "What is the cost of the new edge?\n";
             cin >> cost;
             try {
                 graph.add_edge(node_1, node_2, cost);
@@ -188,8 +207,17 @@ bool Console::read_options() {
             print_graph(graph);
             return true;
         case ADD_NODE:
-            graph.add_node();
-            cout << "An additional node was successfully added!\n";
+            cout << "What is the index of the node you wish to add?\n";
+            cin >> vertex;
+            try{
+                graph.add_node(vertex);
+                cout << "An additional node was successfully added!\n";
+            }
+            catch(std::runtime_error){
+                cout << "The vertex you wish to add already exists, or is invalid. Please try again.\n";
+                return true;
+            }
+
             return true;
         case REMOVE_NODE:
             cout << "What is the node you wish to remove?\n";
@@ -214,11 +242,19 @@ bool Console::read_options() {
             cin >> n;
             cout << "What is the number of edges?\n";
             cin >> m;
+            cout << "What will the new file be called?\n";
+            cin >> file_name;
             try{
                 h = Graph::random_graph(n, m);
+                h.write_to_file("/home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph/" + file_name);
             }
             catch(std::runtime_error){
                 cout << "This graph cannot be created.\n";
+                std::fstream file;
+                file.open(("/home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph/" + file_name).c_str(), std::ios::out);
+                if (file.is_open()) {
+                    file << "This graph cannot be created.\n";
+                }
                 return true;
             }
             print_graph(h);
