@@ -237,6 +237,7 @@ class Console:
     def create_random_graph(self):
         n = input("What should be the number of vertices?")
         m = input("What should be the number of edges?")
+        file_name = input("What file do you want the random graph to be written in?\n")
         try:
             int(n)
             int(m)
@@ -244,6 +245,8 @@ class Console:
             print("These should be integer numbers. Please try again!")
             return
         if int(m) > int(n) * (int(n) - 1):
+            f = open(file_name, "w")
+            f.write("We cannot construct a graph like this. Please try again!")
             print("We cannot construct a graph like this. Please try again!")
             return
         elif int(m) < 0 or int(n) < 0:
@@ -261,4 +264,4 @@ class Console:
             int_m -= 1
 
         print(str(h))
-        h.write_to_file("random_graph2.txt")
+        h.write_to_file(file_name)
