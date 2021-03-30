@@ -149,7 +149,7 @@ public:
      * @param cost: the cost of the new edge
      * @throw if edge already exists or if nodes are invalid
      *
-     * O(n)
+     * O(1)
      */
     void add_edge(node n1, node n2, int cost);
 
@@ -158,7 +158,7 @@ public:
      * @param n: the new node to be added
      * @throw if node already exists
      *
-     * O(n)
+     * O(1)
      */
     void add_node(node n);
 

@@ -110,7 +110,7 @@ void Graph::delete_edge(node node_1, node node_2) {
 void Graph::add_edge(node node_1, node node_2, int cost) {
     if (is_edge(node_1, node_2)) {
         throw std::runtime_error("The edge already exists");
-    } else if (node_1 < 0 || node_1 > this->nr_of_vertices || node_2 < 0 || node_2 > this->nr_of_vertices) {
+    } else if (node_1 < 0 || node_2 < 0 || !is_vertex(node_1) || !is_vertex(node_2)) {
         throw std::runtime_error("The vertices are invalid");
     } else {
         this->dict_cost.insert({std::pair<node, node>(node_1, node_2), cost});
@@ -131,12 +131,10 @@ void Graph::add_node(node vertex) {
 
 void Graph::delete_node(node vertex) {
     bool found = false;
-    for(int i = 0; i < this->vertices.size(); i++){
-        if(vertices[i] == vertex){
-            found = true;
-        }
+    if(is_vertex(vertex)){
+        found = true;
     }
-    if (vertex < 0 || vertex > this->nr_of_vertices || !found) {
+    if (vertex < 0 || !found) {
         throw std::runtime_error("The vertex to remove is not valid.");
     } else {
         this->dict_out[vertex].clear();
@@ -151,17 +149,10 @@ void Graph::delete_node(node vertex) {
                 ++it;
             }
         }
-        for(auto it = this->vertices.begin(); it != this->vertices.end();){
-            if(it->first == vertex) {
-                this->vertices.erase(it);
-                break;
-            }
-            else {
-                ++it;
-            }
+        this->vertices.erase(vertex);
         }
     }
-}
+
 
 Graph Graph::random_graph(int n, int m) {
     Graph g;
@@ -189,7 +180,7 @@ Graph Graph::random_graph(int n, int m) {
 }
 
 bool Graph::is_vertex(node vertex) {
-    if (this->vertices.count(vertex != 0)) {
+    if (this->vertices.count(vertex) != 0) {
         return true;
     }
     return false;
