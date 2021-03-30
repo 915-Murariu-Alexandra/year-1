@@ -23,6 +23,7 @@ enum option {
     MAKE_COPY = 'l',
     RANDOM_GRAPH = 'm',
     GET_COST = 'n',
+    WRITE_TO_FILE = 'o',
     EXIT = 'x'
 };
 
@@ -41,13 +42,14 @@ void Console::print_menu() {
     cout << "l. Make a copy of the graph.\n";
     cout << "m. Create a random graph.\n";
     cout << "n. Get the cost of an existing edge.\n";
+    cout << "o. Write to file.\n";
     cout << "x. Exit the application.\n";
 }
 
 bool Console::read_options() {
     unsigned char option;
     print_menu();
-    printf("Please input your option: ");
+    cout <<"Please input your option: ";
     option = getchar();
 
     if (option == '\n') {
@@ -67,7 +69,7 @@ bool Console::read_options() {
     std::string file_name;
     switch (option) {
         case EXIT:
-            graph.write_to_file("/home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph/graph1k_modif.txt");
+            //graph.write_to_file("/home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph/graph1k_modif.txt");
             return false;
         case GET_NR_OF_VERTICES:
             print_graph(graph);
@@ -75,7 +77,7 @@ bool Console::read_options() {
             return true;
         case PARSE_SET_OF_VERTICES:
             for (; vertices_iterator.first != vertices_iterator.second;) {
-                cout << *vertices_iterator.first << " ";
+                cout << vertices_iterator.first->first << " ";
                 ++vertices_iterator.first;
             }
             return true;
@@ -259,6 +261,11 @@ bool Console::read_options() {
             }
             print_graph(h);
             return true;
+        case WRITE_TO_FILE:
+            cout << "What file do you wish to read the graph from?\n";
+            cin >> file_name;
+            this->graph.write_to_file("../" + file_name);
+            return true;
         default:
             printf("Option is incorrect. PLease try again!\n");
             return true;
@@ -266,6 +273,11 @@ bool Console::read_options() {
 }
 
 void Console::start() {
+    string file_name;
+    cout << "What file do you wish to read the graph from?\n";
+    //this->graph.read_from_file("../graph.txt");
+    cin >> file_name;
+    this->graph.read_from_file("../" + file_name);
     while (this->read_options());
 }
 
@@ -285,7 +297,7 @@ void Console::print_graph(Graph h) {
         cout << element.first.first << " " << element.first.second << " " << element.second << "\n";
     }
     cout << "Remaining vertices are: ";
-    for (node v : h.get_vertices()) {
-        cout << v << " ";
+    for (std::pair<node, node> v : h.get_vertices()) {
+        cout << v.first << " ";
     }
 }

@@ -23,7 +23,7 @@ private:
     std::map<node, std::vector<node>> dict_in;
     std::map<node, std::vector<node>> dict_out;
     std::map<edge, int> dict_cost;
-    std::vector<node> vertices;
+    std::map<node, node> vertices;
 public:
     Graph() = default;
 
@@ -34,7 +34,7 @@ public:
 
     std::map<node, std::vector<node>> get_dict_out() { return this->dict_out; };
 
-    std::vector<node> get_vertices() { return this->vertices;};
+    std::map<node, node> get_vertices() { return this->vertices;};
 
     std::map<edge, int> get_dict_cost() { return this->dict_cost; };
 
@@ -60,7 +60,7 @@ public:
     auto get_vertices_iterator() {
         auto it_begin = this->vertices.begin();
         auto it_end = this->vertices.end();
-        return std::pair<std::vector<node>::iterator, std::vector<node>::iterator>(it_begin, it_end);
+        return std::pair<std::map<node, node>::iterator, std::map<node, node>::iterator>(it_begin, it_end);
     }
 
     /**

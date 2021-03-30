@@ -26,7 +26,7 @@ void Graph::read_from_file(const std::string &name) {
             this->dict_cost.insert({new_edge, cost});
         }
         for (int i = 0; i < n; i++) {
-            this->vertices.push_back(i);
+            this->vertices.insert({i, i});
         }
         new_file.close();
     } else {
@@ -43,8 +43,8 @@ void Graph::write_to_file(const std::string &name) {
             new_file << element.first.first << " " << element.first.second << " " << element.second << "\n";
         }
         new_file << "Remaining vertices are: ";
-        for (node vertex : this->vertices) {
-            new_file << vertex << " ";
+        for (std::pair<node, node> vertex : this->vertices) {
+            new_file << vertex.first << " ";
         }
     } else {
         throw std::runtime_error("The file couldn't be opened");
@@ -121,7 +121,7 @@ void Graph::add_edge(node node_1, node node_2, int cost) {
 
 void Graph::add_node(node vertex) {
     if(!is_vertex(vertex)){
-        this->vertices.push_back(vertex);
+        this->vertices.insert({vertex, vertex});
         this->nr_of_vertices += 1;
     }
     else {
@@ -152,7 +152,7 @@ void Graph::delete_node(node vertex) {
             }
         }
         for(auto it = this->vertices.begin(); it != this->vertices.end();){
-            if(*it == vertex) {
+            if(it->first == vertex) {
                 this->vertices.erase(it);
                 break;
             }
@@ -170,7 +170,7 @@ Graph Graph::random_graph(int n, int m) {
     g.nr_of_vertices = n;
     g.nr_of_edges = m;
     for(int i = 0; i < n; i++) {
-        g.vertices.push_back(i);
+        g.vertices.insert({i, i});
     }
     if (m > n * (n - 1)) {
         throw std::runtime_error("Such a graph cannot be composed.");
@@ -189,10 +189,8 @@ Graph Graph::random_graph(int n, int m) {
 }
 
 bool Graph::is_vertex(node vertex) {
-    for(int i = 0; i < this->nr_of_vertices; i++) {
-        if(this->vertices[i] == vertex) {
-            return true;
-        }
+    if (this->vertices.count(vertex != 0)) {
+        return true;
     }
     return false;
 }
