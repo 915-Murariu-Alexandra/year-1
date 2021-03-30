@@ -141,15 +141,7 @@ void Graph::delete_node(node vertex) {
     } else {
         this->dict_out[vertex].clear();
         this->nr_of_vertices--;
-        for (std::pair<node, std::vector<node>> element : this->dict_in) {
-            for (auto it = element.second.begin(); it != element.second.end();) {
-                if (*it == vertex) {
-                    element.second.erase(it);
-                } else {
-                    ++it;
-                }
-            }
-        }
+        this->dict_in[vertex].clear();
 
         for (auto it = this->dict_cost.begin(); it != this->dict_cost.end();) {
             if (it->first.first == vertex || it->first.second == vertex) {

@@ -66,6 +66,8 @@ public:
     /**
      * Function that reads a graph from a file.
      * @throw if file doesn't exist
+     *
+     * Theta(n)
      */
     void read_from_file(const std::string &);
 
@@ -73,6 +75,8 @@ public:
      * Function that writes a graph to a given file.
      * @param file_name: file path (std::string)
      * @throw if file cannot be opened for writing
+     *
+     * Theta(n)
      */
     void write_to_file(const std::string & file_name);
 
@@ -81,6 +85,8 @@ public:
      * @param n1: first vertex (int)
      * @param n2: second vertex (int)
      * @return true if edge exists else false
+     *
+     * O(logn)
      */
     bool is_edge(node n1, node n2);
 
@@ -89,6 +95,8 @@ public:
      * @param vertex an existing node (int)
      * @throw if vertex doesn't exist
      * @return the in-degree of the vertex (int)
+     *
+     * Theta(1)
      */
     int in_degree(node vertex);
 
@@ -97,6 +105,8 @@ public:
      * @param vertex an existing node (int)
      * @throw if vertex doesn't exist
      * @return the out-degree of the vertex (int)
+     *
+     * Theta(1)
      */
     int out_degree(node);
 
@@ -106,6 +116,8 @@ public:
      * @param n2: second vertex
      * @param cost: the new cost of the edge
      * @throw if edge (n1, n2) doesn't exist in the graph
+     *
+     * Theta(1)
      */
     void modify_cost(node n1, node n2, int cost);
 
@@ -115,6 +127,8 @@ public:
      * @param n2: the second node from the edge
      * @throw if edge (n1, n2) doesn't exist
      * @return the cost of the edge (n1, n2) (int)
+     *
+     * Theta(1)
      */
     int get_cost(node n1, node n2);
 
@@ -123,6 +137,8 @@ public:
      * @param n1: the first node from the edge
      * @param n2: the second node from the edge
      * @throw if edge (n1, n2) doesn't exist
+     *
+     * O(n)
      */
     void delete_edge(node n1, node n2);
 
@@ -132,6 +148,8 @@ public:
      * @param n2: the second node from the edge
      * @param cost: the cost of the new edge
      * @throw if edge already exists or if nodes are invalid
+     *
+     * O(n)
      */
     void add_edge(node n1, node n2, int cost);
 
@@ -139,6 +157,8 @@ public:
      * Function that adds a new node to the graph
      * @param n: the new node to be added
      * @throw if node already exists
+     *
+     * O(n)
      */
     void add_node(node n);
 
@@ -147,6 +167,8 @@ public:
      * other edges
      * @param n: the node to be deleted
      * @throw if node doesn't exist
+     *
+     * O(n)
      */
     void delete_node(node n);
 
@@ -170,6 +192,8 @@ public:
      * Function that verifies if a given node index is in the graph
      * @param n: the node to search for
      * @return true if the node exists, false otherwise
+     *
+     * O(n)
      */
     bool is_vertex(node n);
 };

@@ -1,4 +1,5 @@
 import copy
+import random
 
 
 class Graph:
@@ -24,7 +25,8 @@ class Graph:
     def copy_graph(self):
         """
         Function that returns a copy of the graph
-        :return: (Graph) an exact deepcopy of this graph
+
+        :return (Graph) an exact deepcopy of this graph
         """
         return Graph(self._nr_of_vertices, self._nr_of_edges, self.parse_vertices(), copy.deepcopy(self.get_dict_in()),
                      copy.deepcopy(self.get_dict_out()), copy.deepcopy(self.get_dict_cost()))
@@ -32,16 +34,18 @@ class Graph:
     def parse_vertices(self):
         """
         Function that returns an iterator to the vertices list
-        :return: an iterator through the list of vertices
+
+        :return an iterator through the list of vertices
         """
         return iter(self._list_of_nodes)
 
     def is_edge(self, node_in, node_out):
         """
         Function that checks if (node_in, node_out) is an edge
+        Complexity: Theta(1)
         :param node_in: the first vertex
         :param node_out: the second vertex
-        :return: true if (node_1, node_2) is a vertex, false otherwise
+        :return true if (node_1, node_2) is a vertex, false otherwise
         """
         if (node_in, node_out) in self._dict_cost.keys():
             return True
@@ -50,6 +54,7 @@ class Graph:
     def in_degree(self, node):
         """
         Function that returns the in-degree of the given vertex
+        Complexity: Theta(1)
         :param node: the node to compute the in-degree of
         :raise Exception: if the node doesn't exist
         :return: the in-degree of the given node (int)
@@ -63,6 +68,7 @@ class Graph:
     def out_degree(self, node):
         """
         Function that returns the out-degree of the given vertex
+        Complexity: Theta(1)
         :param node: the node to compute the out-degree of
         :raise Exception: if the node doesn't exist
         :return: the out-degree of the given node (int)
@@ -76,6 +82,7 @@ class Graph:
     def parse_outbound_edges(self, vertex):
         """
         Function that returns an iterator through the outbound edges of the vertex
+        Complexity: Theta(1)
         :param vertex: the node to parse through
         :raise Exception: if the node doesn't exist
         :return: an iterator through the list of vertices that are outbound connected to the vertex
@@ -87,6 +94,7 @@ class Graph:
     def parse_inbound_edges(self, vertex):
         """
         Function that returns an iterator through the inbound edges of the vertex
+        Complexity: Theta(1)
         :param vertex: the node to parse through
         :raise Exception: if the node doesn't exist
         :return: an iterator through the list of vertices that are inbound connected to the vertex
@@ -98,6 +106,7 @@ class Graph:
     def modify_cost(self, node_in, node_out, new_cost):
         """
         Function that modifies the cost of the given edge
+        Complexity: Theta(1)
         :param node_in: the first vertex
         :param node_out: the second vertex
         :param new_cost: the new cost of the edge (int)
@@ -111,6 +120,7 @@ class Graph:
     def add_edge(self, node_in, node_out, cost):
         """
         Function that adds an edge to the graph
+        Complexity: Theta(1)
         :param node_in: the first vertex
         :param node_out: the second vertex
         :param cost: the cost of the new edge (int)
@@ -136,6 +146,7 @@ class Graph:
     def remove_edge(self, node_in, node_out):
         """
         Function that removes an edge from the graph
+        Complexity: Theta(1)
         :param node_in: the first vertex
         :param node_out: the second vertex
         :raise Exception: if the edge doesn't exist
@@ -151,6 +162,7 @@ class Graph:
     def add_node(self, vertex):
         """
         Function that adds a node to the graph
+        Complexity: Theta(1)
         :param vertex: the node to be added
         :raise Exception: the node is invalid (it already exists)
         :return: -
@@ -166,6 +178,7 @@ class Graph:
     def remove_node(self, vertex):
         """
         Function that removes a node from the graph
+        Complexity: O(n)
         :param vertex: the node to be removed
         :raise Exception: if the vertex doesn't exist
         :return: -
@@ -198,6 +211,7 @@ class Graph:
     def read_from_file(self, file_name):
         """
         Function that reads a graph from a file
+        Complexity: O(n)
         :param file_name: the file to read from
         :return: -
         """
@@ -227,6 +241,7 @@ class Graph:
     def write_to_file(self, file_name):
         """
         Function that writes to a file the graph
+        Complexity: O(n)
         :param file_name: the file to write into
         :return: -
         """
@@ -236,6 +251,12 @@ class Graph:
         for key, value in self._dict_out.items():
             for vertex in value:
                 f.write(str(key) + " " + str(vertex) + " " + str(self._dict_cost[(key, vertex)]) + "\n")
+
+    def get_cost(self, n1, n2):
+        if not self.is_edge(n1, n2):
+            raise Exception("The edge doesn't exist")
+        else:
+            return self._dict_cost[(n1, n2)]
 
     def get_nr_of_vertices(self):
         return self._nr_of_vertices
@@ -267,3 +288,24 @@ class Graph:
         for node in self._list_of_nodes:
             graph_str += str(node) + " "
         return graph_str
+
+    @staticmethod
+    def random_graph(n, m):
+        """
+        Function that creates a random graph
+        :param n: the number of vertices
+        :param m: the number of edges
+        :return: a graph
+        """
+        if int(m) > int(n) * (int(n) - 1):
+            raise Exception("The graph cannot be constructed.")
+        h = Graph(n, 0, [i for i in range(int(n))])
+        all_edges = [[i, j] for i in range(n) for j in range(n) if i != j]
+
+        while m > 0:
+            edge = random.choice(all_edges)
+            all_edges.remove(edge)
+            cost = random.randint(1, 50)
+            h.add_edge(edge[0], edge[1], cost)
+            m -= 1
+        return h

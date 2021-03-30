@@ -1,6 +1,6 @@
 import random
 
-from graph import Graph
+from graph import Graph, random_graph
 
 
 class Console:
@@ -21,13 +21,14 @@ class Console:
         print("5. Parse the set of outbound edges of a vertex.")
         print("6. Parse the set of inbound edges of a vertex.")
         print("7. Modify the cost of an edge.")
-        print("8. Add an edge.")
-        print("9. Remove an edge.")
-        print("10. Add a node.")
-        print("11. Remove a node.")
-        print("12. Make a copy of the graph.")
-        print("13. Create a random graph.")
-        print("14. Write the graph to a text file.")
+        print("8. Get the cost of an edge.")
+        print("9. Add an edge.")
+        print("10. Remove an edge.")
+        print("11. Add a node.")
+        print("12. Remove a node.")
+        print("13. Make a copy of the graph.")
+        print("14. Create a random graph.")
+        print("15. Write the graph to a text file.")
         print("x. Exit the application.")
 
     def read_option(self):
@@ -55,24 +56,27 @@ class Console:
             self.modify_cost()
             return 0
         elif option == "8":
-            self.add_edge()
+            self.get_cost()
             return 0
         elif option == "9":
-            self.remove_edge()
+            self.add_edge()
             return 0
         elif option == "10":
-            self.add_node()
+            self.remove_edge()
             return 0
         elif option == "11":
-            self.remove_node()
+            self.add_node()
             return 0
         elif option == "12":
-            self.make_a_copy()
+            self.remove_node()
             return 0
         elif option == "13":
-            self.create_random_graph()
+            self.make_a_copy()
             return 0
         elif option == "14":
+            self.create_random_graph()
+            return 0
+        elif option == "15":
             self.write_to_file()
             return 0
         elif option == "x":
@@ -153,6 +157,21 @@ class Console:
         try:
             self._graph.modify_cost(int(node_1), int(node_2), int(new_cost))
             print("The cost was successfully modified!")
+        except Exception as ex:
+            print(ex)
+            return
+
+    def get_cost(self):
+        node_1 = input("Please input the first vertex from the edge.")
+        node_2 = input("Please input the second vertex from the edge.")
+        try:
+            int(node_1)
+            int(node_2)
+        except ValueError:
+            print("The nodes and cost should be integers. Please try again!")
+            return
+        try:
+            print(self._graph.get_cost(int(node_1), int(node_2)))
         except Exception as ex:
             print(ex)
             return
@@ -251,17 +270,6 @@ class Console:
             return
         elif int(m) < 0 or int(n) < 0:
             print("The numbers should be positive.")
-        int_m = int(m)
-        int_n = int(n)
-        h = Graph(int_n, 0, [i for i in range(int(n))])
-        all_edges = [[i, j] for i in range(int_n) for j in range(int_n) if i != j]
-
-        while int_m > 0:
-            edge = random.choice(all_edges)
-            all_edges.remove(edge)
-            cost = random.randint(1, 50)
-            h.add_edge(edge[0], edge[1], cost)
-            int_m -= 1
-
+        h = random_graph(int(n), int(m))
         print(str(h))
         h.write_to_file(file_name)
