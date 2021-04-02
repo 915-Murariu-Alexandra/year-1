@@ -116,6 +116,7 @@ void Graph::add_edge(node node_1, node node_2, int cost) {
         this->dict_cost.insert({std::pair<node, node>(node_1, node_2), cost});
         this->dict_in[node_2].push_back(node_1);
         this->dict_out[node_1].push_back(node_2);
+        this->nr_of_edges++;
     }
 }
 
@@ -137,6 +138,26 @@ void Graph::delete_node(node vertex) {
     if (vertex < 0 || !found) {
         throw std::runtime_error("The vertex to remove is not valid.");
     } else {
+        for(auto i: dict_out[vertex]){
+            for(auto it = dict_in[i].begin(); it != dict_in[i].end();) {
+                if(*it == vertex){
+                    it = dict_in[i].erase(it);
+                }
+                else {
+                    ++it;
+                }
+            }
+        }
+        for(auto i: dict_in[vertex]){
+            for(auto it = dict_out[i].begin(); it != dict_out[i].end();) {
+                if(*it == vertex){
+                    it = dict_out[i].erase(it);
+                }
+                else {
+                    ++it;
+                }
+            }
+        }
         this->dict_out[vertex].clear();
         this->nr_of_vertices--;
         this->dict_in[vertex].clear();
@@ -163,7 +184,7 @@ Graph Graph::random_graph(int n, int m) {
     for(int i = 0; i < n; i++) {
         g.vertices.insert({i, i});
     }
-    if (m > n * (n - 1)) {
+    if (m > n*n) {
         throw std::runtime_error("Such a graph cannot be composed.");
     }
     while (m > 0) {

@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph/Graph.cpp
+Graph.h
+/home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph/Graph.h
+fstream
+-
+iostream
+-
+random
+-
+
+/home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph/Graph.h
+utility
+-
+vector
+-
+map
+-
+string
+-
+

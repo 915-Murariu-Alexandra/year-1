@@ -1,0 +1,37 @@
+ExerciĹŁii propuse
+-----------------------------------------------------------------------------------------------------
+
+1. CalculaČ›i numÄrul mediu de linii ale fiČ™ierelor de tip text dintr-un director dat ca parametru.
+(comenzi: find, file, wc)
+
+2. AfiČ™aČ›i numele fiČ™ierelor dintr-un director dat ca parametru care conČ›in numere de peste 5 cifre.
+
+3. AfiČ™aČ›i primele 5 linii Č™i ultimele 5 linii ale fiČ™ierelor de tip text din directorul curent.
+DacÄ un fiČ™ier are mai puČ›in de 10 linii, afiČ™aČ›i fiČ™ierul complet.
+(comenzi: head, tail, find, file, wc)
+
+4. Sa se scrie un fisier de comenzi care va afisa toate fisierele dintr-un director si din subdirectoarele
+acestuia asupra carora au drepturi de scriere toate cele trei categorii de utilizatori.
+Aceste fisiere vor fi apoi redenumite, adaugandu-se sufixul .all.
+(comenzi: find -perm, mv)
+
+5. Pentru fiecare parametru din linia de comandÄ: dacÄ e fiČ™ier, se vor afiČ™a numele, numÄrul de caractere
+Č™i de linii din el (Ă®n aceastÄ ordine), iar dacÄ e director, numele Č™i cĂ˘te fiČ™iere conČ›ine (inclusiv Ă®n subdirectoare).
+(comenzi: test, wc, awk, find)
+
+6. Sa se scrie un fisier de comenzi care are ca parametri triplete formate dintr-un nume de fisier, un cuvant si un numar k.
+Pentru fiecare astfel de triplet, se vor afisa toate liniile fisierului care contin cuvantul respectiv exact de k ori.
+(comenzi: shift, awk)
+
+7. Sa se afiseze pentru fiecare fisier din linia de comanda linia care apare de cele mai multe ori,
+afisarea facandu-se in ordinea decsrescatoare a numarului de aparitii.
+(comenzi: sort, uniq, head)
+
+8. Sa se scrie un fisier de comenzi care va afisa toate numele de fisiere dintr-un director dat ca parametru
+si din subdirectoarele sale, care au numele mai scurte de 8 caractere.
+Pentru acestea, daca sunt fisiere text, li se vor afisa primele 10 linii.
+
+9. Sa se scrie un program shell care pentru fiecare fisier cu drepturile 755 dintr-un director (si subdirectoarele sale)
+dat ca parametru ii schimba drepturile de acces in 744.
+Inainte de a schimba drepturile de acces, pogramul cere confirmare din partea utilizatorului (pentru fiecare fisier in parte).
+(comenzi: find, chmod, read)

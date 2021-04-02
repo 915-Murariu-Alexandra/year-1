@@ -1,0 +1,329 @@
+case_1.sh
+
+#!/bin/bash
+
+if [ $# -eq 0 ]
+	then
+	echo "Error: You must enter an option."
+	exit 1
+fi
+
+case $1 in
+	-[a-z] ) echo "You enter a letter";;
+	-[0-9] ) echo "You enter a digit";;
+	* )	echo "Unknown option";;
+esac
+
+
+-------------------------------------------------
+for_1.sh
+
+#!/bin/bash
+
+for N in 1 2 3 4 5
+do
+  echo $N
+done
+
+
+--------------------------------------------------
+
+for_2.sh
+
+#!/bin/bash
+
+for N in {0..5}
+do
+  echo $N
+done
+
+---------------------------------------------------
+
+for_3.sh
+
+#!/bin/bash
+
+NAMES='Ana Iulia Maria Tudor'
+
+for N in $NAMES
+do
+  echo $N
+done
+
+---------------------------------------------------
+
+for_4.sh
+
+#!/bin/sh
+
+if [ $# -eq 0 ]
+then
+	echo "Error: Not enough arguments."
+	exit 1
+fi
+
+for arg in $*
+do
+   echo $arg
+done
+
+---------------------------------------------------
+
+for_4x.sh
+
+#!/bin/bash
+
+# Count all the lines of code of the C files in the directory given as command line argument,
+# excluding lines that are empty or contain only blank spaces.
+
+S=0
+for F in $1/*.c
+do
+  N=`grep "[^ \t]" $F | wc -l`
+  S=`expr $S + $N`
+done
+
+echo $S
+
+---------------------------------------------------------
+
+for_5x.sh
+
+#!/bin/bash
+
+# Count all the lines of code of the C files in the directory given as command line argument
+# and its subdirectories, excluding lines that are empty or contain only blank spaces
+
+S=0
+for F in `find $1 –type f –name “*.c”`
+do
+  N=`grep "[^ \t]" $F | wc -l`
+  S=`expr $S + $N`
+done
+
+echo $S
+
+--------------------------------------------------------
+
+if_1.sh
+
+#!/bin/bash
+
+for A in $@
+do
+    if test -f $A
+    then
+        echo $A is a file
+    elif test -d $A
+    then
+        echo $A is a dir
+    elif echo $A | grep -q "^[0-9]\+$"; then
+        echo $A is a number
+    else
+        echo We do not know what $A is
+    fi
+done
+
+--------------------------------------------------------
+
+if_2.sh
+
+#!/bin/bash
+
+for A in $@
+do
+    if [ -f $A ]
+    then
+        echo $A is a file
+    elif [ -d $A ]
+    then
+        echo $A is a dir
+    elif echo $A | grep -q "^[0-9]\+$"
+    then
+        echo $A is a number
+    else
+        echo We do not know what $A is
+    fi
+done
+
+-------------------------------------------------------
+
+script_1.sh
+
+#!/bin/bash
+
+# print working directory
+pwd
+
+# list the content of directory
+ls -l
+
+------------------------------------------------------
+
+script_2.sh
+
+#!/bin/bash
+
+echo "Enter a number:"
+read n
+
+echo "The number was: $n"
+
+-------------------------------------------------------
+
+script_3.sh
+
+#!/bin/bash
+
+echo -n "Enter your name: "
+read nume
+
+echo "Hello" $nume
+
+-------------------------------------------------------
+
+script_4.sh
+
+#!/bin/bash
+
+echo "Filename: $0"
+echo "First argument: $1"
+echo "Second argument: $2"
+echo "Argument count: $#"
+echo "Argument list: $@"
+echo "Argument list: $*"
+
+-------------------------------------------------------
+
+script_5.sh
+
+#!/bin/bash
+
+A=1234
+B=5678
+
+echo "$A + $B"
+
+------------------------------------------------------
+
+script_6.sh
+
+#!/bin/bash
+
+#
+# Doing simple math in Bash
+#
+# Shell script variables are by default treated as strings, not numbers.
+#
+
+# read the first number
+echo -n "First number: "
+read num1
+
+# read the second number
+echo -n "Second number: "
+read num2
+
+# 1. Using compound command (( expresion ))
+sum=$((num1+num2))
+
+# 2. Using let built-in command
+#let sum=num1+num2
+
+# 3. Using expr extern command
+#sum=`expr $num1 + $num2`					# put spaces around + sign
+
+# 4. Using declare built-in command
+#declare -i sum
+#sum=num1+num2
+
+echo "The result is:" $sum
+
+-----------------------------------------------------------------
+
+while_1.sh
+
+#!/bin/bash
+
+# Read user input until the input is stop
+# The command read stores the user input in the variable given as argument
+
+while true
+do
+  read X
+  if test "$X" == "stop"
+  then
+    break
+  fi
+done
+
+------------------------------------------------------------------
+
+while_2.sh
+
+#!/bin/bash
+
+# Find all the files in the directory given as first command line argument,
+# larger in size than the second command line argument
+
+D=$1
+S=$2
+
+find $D -type f | while read F
+do
+    N=`ls -l $F | awk '{print $5}'`
+    if test $N -gt $S
+    then
+        echo $F
+    fi
+done
+
+-------------------------------------------------------------------
+
+while_3.sh
+
+#!/bin/bash
+
+# Read the console input until the user
+# provides a filename that exists and can be read
+
+F=””
+while [ -z "$F" ] || [ ! -f "$F" ] || [ ! -r "$F" ]
+do
+  read -p "Provide an existing and readable file path:" F
+done
+
+------------------------------------------------------------------
+
+while_4.sh
+
+#!/bin/bash
+
+if [ $# -eq 0 ]
+	then
+	echo "Error: You must enter a filename."
+	exit 1
+elif !(test -r $1)
+	then
+	echo "File $1 does not exist."
+	exit 1
+fi
+
+while read -r line
+do
+	echo $line
+done
+
+-----------------------------------------------------------------
+
+while_5.sh
+
+#!/bin/bash
+
+echo -n "Enter a filename: "
+read filename
+
+while read -r line
+do
+	echo $line
+done < $filename

@@ -1,6 +1,6 @@
 import random
 
-from graph import Graph, random_graph
+from graph import Graph
 
 
 class Console:
@@ -263,13 +263,13 @@ class Console:
         except ValueError:
             print("These should be integer numbers. Please try again!")
             return
-        if int(m) > int(n) * (int(n) - 1):
+        if int(m) > int(n) * int(n):
             f = open(file_name, "w")
             f.write("We cannot construct a graph like this. Please try again!")
             print("We cannot construct a graph like this. Please try again!")
             return
         elif int(m) < 0 or int(n) < 0:
             print("The numbers should be positive.")
-        h = random_graph(int(n), int(m))
+        h = self._graph.random_graph(int(n), int(m))
         print(str(h))
         h.write_to_file(file_name)

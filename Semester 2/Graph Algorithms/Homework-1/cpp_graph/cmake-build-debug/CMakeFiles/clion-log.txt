@@ -1,0 +1,4 @@
+/app/extra/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/kida/year-1/Semester 2/Graph Algorithms/Homework-1/cpp_graph/cmake-build-debug

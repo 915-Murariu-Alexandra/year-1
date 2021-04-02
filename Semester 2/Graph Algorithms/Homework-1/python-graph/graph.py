@@ -297,10 +297,10 @@ class Graph:
         :param m: the number of edges
         :return: a graph
         """
-        if int(m) > int(n) * (int(n) - 1):
+        if int(m) > int(n) * int(n):
             raise Exception("The graph cannot be constructed.")
         h = Graph(n, 0, [i for i in range(int(n))])
-        all_edges = [[i, j] for i in range(n) for j in range(n) if i != j]
+        all_edges = [[i, j] for i in range(n) for j in range(n)]
 
         while m > 0:
             edge = random.choice(all_edges)
@@ -309,3 +309,16 @@ class Graph:
             h.add_edge(edge[0], edge[1], cost)
             m -= 1
         return h
+
+    def accessible(self, s):
+        acc = set()
+        acc.add(s)
+        list = [s]
+        while len(list) > 0:
+            x = list[0]
+            list = list[1:]
+            for y in self.parse_outbound_edges(x):
+                if y not in acc:
+                    acc.add(y)
+                    list.append(y)
+        return
