@@ -1,0 +1,6 @@
+---------------------------------------------------------------------------
+1. Să se scrie un script bash care primeşte ca argument un număr natural N şi generează N fişiere de tip text, astfel:
+- numele fişierelor vor fi de forma: file_X.txt, unde X = {1, 2, ..., N}
+- fiecare fişier generat va conţine doar liniile de la X la X + 5 ale fişierului passwd.fake
+
+2. Să se scrie un script bash care primeşte ca argument un nume de director şi afişează primele 3 linii ale fiecărui fişier de tip text din acel director.
