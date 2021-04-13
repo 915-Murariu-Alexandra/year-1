@@ -6,13 +6,16 @@ class Graph:
     """
     Class for the bidirectional graph
     """
-    def __init__(self, n=0, m=0, nodes=None, dict_in=None, dict_out=None, dict_cost=None):
+
+    def __init__(self, n=0, m=0, nodes=None, dict_in=None, dict_out=None, dict_cost=None, dict_un=None):
         if dict_cost is None:
             dict_cost = {}
         if dict_out is None:
             dict_out = {}
         if dict_in is None:
             dict_in = {}
+        if dict_un is None:
+            dict_un = {}
         if nodes is None:
             nodes = []
         self._nr_of_vertices = n
@@ -20,7 +23,10 @@ class Graph:
         self._list_of_nodes = nodes
         self._dict_in = dict_in
         self._dict_out = dict_out
+        self._dict_undirected = dict_un
         self._dict_cost = dict_cost
+        self.Time = 0
+        self.count = 0
 
     def copy_graph(self):
         """
@@ -227,13 +233,17 @@ class Graph:
             cost = int(content[index].split()[2])
             if node_2 not in self._dict_in.keys():
                 self._dict_in[node_2] = [node_1]
+                self._dict_undirected[node_2] = [node_1]
             else:
                 self._dict_in[node_2].append(node_1)
+                self._dict_undirected[node_2].append(node_1)
 
             if node_1 not in self._dict_out.keys():
                 self._dict_out[node_1] = [node_2]
+                self._dict_undirected[node_1] = [node_2]
             else:
                 self._dict_out[node_1].append(node_2)
+                self._dict_undirected[node_1].append(node_2)
 
             self._dict_cost[(node_1, node_2)] = cost
         self._list_of_nodes = [i for i in range(self._nr_of_vertices)]
@@ -310,15 +320,146 @@ class Graph:
             m -= 1
         return h
 
-    def accessible(self, s):
-        acc = set()
-        acc.add(s)
-        list = [s]
-        while len(list) > 0:
-            x = list[0]
-            list = list[1:]
+    def shortest_path(self, start, end):
+        y = -1
+        visited = [end]
+        queue = [end]
+        dist_dictionary = {end: 0}
+        next_dictionary = {}
+        while len(queue) != 0:
+            x = queue.pop(0)
+            try:
+                for y in self.parse_inbound_edges(x):
+                    if y not in visited:
+                        queue.append(y)
+                        visited.append(y)
+                        dist_dictionary[y] = dist_dictionary[x] + 1
+                        next_dictionary[y] = x
+                        #print(queue)
+            except Exception:
+                continue
+        x = start
+        y = -1
+        path = [start]
+        while y != end:
+            y = next_dictionary[x]
+            x = y
+            path.append(x)
+        return dist_dictionary[start], path
+
+    def DFS(self, x, visited=[], processed=[]):
+        try:
             for y in self.parse_outbound_edges(x):
-                if y not in acc:
-                    acc.add(y)
-                    list.append(y)
-        return
+                if y not in visited:
+                    visited.append(y)
+                    self.DFS(y)
+        except Exception:
+            return
+        processed.append(x)
+
+    def kosaraju(self):
+        processed = []
+        visited = []
+        for s in self.parse_vertices():
+            if s not in visited:
+                visited.append(s)
+                self.DFS(s, visited, processed)
+        visited.clear()
+        c = 0
+        comp = {}
+        q = []
+        while not len(processed) == 0:
+            s = processed.pop()
+            if s not in visited:
+                c = c + 1
+                comp[s] = c
+                q.append(s)
+                visited.append(s)
+                while len(q) != 0:
+                    x = q.pop()
+                    try:
+                        for y in self.parse_inbound_edges(x):
+                            if y not in visited:
+                                visited.append(y)
+                                q.append(y)
+                                comp[y] = c
+                    except Exception:
+                        continue
+        return comp
+
+    '''A recursive function that finds and prints strongly connected
+        components using DFS traversal
+        u --> The vertex to be visited next
+        disc[] --> Stores discovery times of visited vertices
+        low[] -- >> earliest visited vertex (the vertex with minimum
+                   discovery time) that can be reached from subtree
+                   rooted with current vertex
+        st -- >> To store visited edges'''
+
+    def BCCUtil(self, u, parent, low, disc, st):
+
+        # Count of children in current node
+        children = 0
+
+        # Initialize discovery time and low value
+        disc[u] = self.Time
+        low[u] = self.Time
+        self.Time += 1
+        if u in self._dict_undirected.keys():
+            # Recur for all the vertices adjacent to this vertex
+            for v in self._dict_undirected[u]:
+                # If v is not visited yet, then make it a child of u
+                # in DFS tree and recur for it
+                if disc[v] == -1:
+                    parent[v] = u
+                    children += 1
+                    st.append((u, v))  # store the edge in stack
+                    self.BCCUtil(v, parent, low, disc, st)
+
+                    # Check if the subtree rooted with v has a connection to
+                    # one of the ancestors of u
+                    # Case 1 -- per Strongly Connected Components Article
+                    low[u] = min(low[u], low[v])
+
+                    # If u is an articulation point, pop
+                    # all edges from stack till (u, v)
+                    if parent[u] == -1 and children > 1 or parent[u] != -1 and low[v] >= disc[u]:
+                        self.count += 1  # increment count
+                        w = -1
+                        while w != (u, v):
+                            w = st.pop()
+
+                elif v != parent[u] and low[u] > disc[v]:
+                    '''Update low value of 'u' only of 'v' is still in stack
+                    (i.e. it's a back edge, not cross edge).
+                    Case 2 
+                    -- per Strongly Connected Components Article'''
+
+                    low[u] = min(low[u], disc[v])
+
+                    st.append((u, v))
+
+    # The function to do DFS traversal.
+    # It uses recursive BCCUtil()
+    def BCC(self):
+
+        # Initialize disc and low, and parent arrays
+        disc = [-1] * (self._nr_of_vertices)
+        low = [-1] * (self._nr_of_vertices)
+        parent = [-1] * (self._nr_of_vertices)
+        st = []
+
+        # Call the recursive helper function to
+        # find articulation points
+        # in DFS tree rooted with vertex 'i'
+        for i in range(self._nr_of_vertices):
+            if disc[i] == -1:
+                self.BCCUtil(i, parent, low, disc, st)
+
+            # If stack is not empty, pop all edges from stack
+            if st:
+                self.count = self.count + 1
+
+                while st:
+                    w = st.pop()
+                    print(w)

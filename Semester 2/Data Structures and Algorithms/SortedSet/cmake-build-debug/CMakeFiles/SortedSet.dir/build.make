@@ -54,19 +54,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /app/extra/clion/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/kida/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.7717.62/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /app/extra/clion/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/kida/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.7717.62/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/kida/Documents/data structures/SortedSet"
+CMAKE_SOURCE_DIR = "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/kida/Documents/data structures/SortedSet/cmake-build-debug"
+CMAKE_BINARY_DIR = "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/SortedSet.dir/depend.make
@@ -79,68 +79,68 @@ include CMakeFiles/SortedSet.dir/flags.make
 
 CMakeFiles/SortedSet.dir/App.cpp.o: CMakeFiles/SortedSet.dir/flags.make
 CMakeFiles/SortedSet.dir/App.cpp.o: ../App.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SortedSet.dir/App.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/App.cpp.o -c "/home/kida/Documents/data structures/SortedSet/App.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SortedSet.dir/App.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/App.cpp.o -c "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/App.cpp"
 
 CMakeFiles/SortedSet.dir/App.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SortedSet.dir/App.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/Documents/data structures/SortedSet/App.cpp" > CMakeFiles/SortedSet.dir/App.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/App.cpp" > CMakeFiles/SortedSet.dir/App.cpp.i
 
 CMakeFiles/SortedSet.dir/App.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SortedSet.dir/App.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/Documents/data structures/SortedSet/App.cpp" -o CMakeFiles/SortedSet.dir/App.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/App.cpp" -o CMakeFiles/SortedSet.dir/App.cpp.s
 
 CMakeFiles/SortedSet.dir/ExtendedTest.cpp.o: CMakeFiles/SortedSet.dir/flags.make
 CMakeFiles/SortedSet.dir/ExtendedTest.cpp.o: ../ExtendedTest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SortedSet.dir/ExtendedTest.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/ExtendedTest.cpp.o -c "/home/kida/Documents/data structures/SortedSet/ExtendedTest.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SortedSet.dir/ExtendedTest.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/ExtendedTest.cpp.o -c "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/ExtendedTest.cpp"
 
 CMakeFiles/SortedSet.dir/ExtendedTest.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SortedSet.dir/ExtendedTest.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/Documents/data structures/SortedSet/ExtendedTest.cpp" > CMakeFiles/SortedSet.dir/ExtendedTest.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/ExtendedTest.cpp" > CMakeFiles/SortedSet.dir/ExtendedTest.cpp.i
 
 CMakeFiles/SortedSet.dir/ExtendedTest.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SortedSet.dir/ExtendedTest.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/Documents/data structures/SortedSet/ExtendedTest.cpp" -o CMakeFiles/SortedSet.dir/ExtendedTest.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/ExtendedTest.cpp" -o CMakeFiles/SortedSet.dir/ExtendedTest.cpp.s
 
 CMakeFiles/SortedSet.dir/ShortTest.cpp.o: CMakeFiles/SortedSet.dir/flags.make
 CMakeFiles/SortedSet.dir/ShortTest.cpp.o: ../ShortTest.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SortedSet.dir/ShortTest.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/ShortTest.cpp.o -c "/home/kida/Documents/data structures/SortedSet/ShortTest.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SortedSet.dir/ShortTest.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/ShortTest.cpp.o -c "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/ShortTest.cpp"
 
 CMakeFiles/SortedSet.dir/ShortTest.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SortedSet.dir/ShortTest.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/Documents/data structures/SortedSet/ShortTest.cpp" > CMakeFiles/SortedSet.dir/ShortTest.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/ShortTest.cpp" > CMakeFiles/SortedSet.dir/ShortTest.cpp.i
 
 CMakeFiles/SortedSet.dir/ShortTest.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SortedSet.dir/ShortTest.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/Documents/data structures/SortedSet/ShortTest.cpp" -o CMakeFiles/SortedSet.dir/ShortTest.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/ShortTest.cpp" -o CMakeFiles/SortedSet.dir/ShortTest.cpp.s
 
 CMakeFiles/SortedSet.dir/SortedSet.cpp.o: CMakeFiles/SortedSet.dir/flags.make
 CMakeFiles/SortedSet.dir/SortedSet.cpp.o: ../SortedSet.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SortedSet.dir/SortedSet.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/SortedSet.cpp.o -c "/home/kida/Documents/data structures/SortedSet/SortedSet.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SortedSet.dir/SortedSet.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/SortedSet.cpp.o -c "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/SortedSet.cpp"
 
 CMakeFiles/SortedSet.dir/SortedSet.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SortedSet.dir/SortedSet.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/Documents/data structures/SortedSet/SortedSet.cpp" > CMakeFiles/SortedSet.dir/SortedSet.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/SortedSet.cpp" > CMakeFiles/SortedSet.dir/SortedSet.cpp.i
 
 CMakeFiles/SortedSet.dir/SortedSet.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SortedSet.dir/SortedSet.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/Documents/data structures/SortedSet/SortedSet.cpp" -o CMakeFiles/SortedSet.dir/SortedSet.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/SortedSet.cpp" -o CMakeFiles/SortedSet.dir/SortedSet.cpp.s
 
 CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.o: CMakeFiles/SortedSet.dir/flags.make
 CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.o: ../SortedSetIterator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.o -c "/home/kida/Documents/data structures/SortedSet/SortedSetIterator.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.o -c "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/SortedSetIterator.cpp"
 
 CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/Documents/data structures/SortedSet/SortedSetIterator.cpp" > CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/SortedSetIterator.cpp" > CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.i
 
 CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/Documents/data structures/SortedSet/SortedSetIterator.cpp" -o CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/SortedSetIterator.cpp" -o CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.s
 
 # Object files for target SortedSet
 SortedSet_OBJECTS = \
@@ -160,7 +160,7 @@ SortedSet: CMakeFiles/SortedSet.dir/SortedSet.cpp.o
 SortedSet: CMakeFiles/SortedSet.dir/SortedSetIterator.cpp.o
 SortedSet: CMakeFiles/SortedSet.dir/build.make
 SortedSet: CMakeFiles/SortedSet.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable SortedSet"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable SortedSet"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SortedSet.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -173,6 +173,6 @@ CMakeFiles/SortedSet.dir/clean:
 .PHONY : CMakeFiles/SortedSet.dir/clean
 
 CMakeFiles/SortedSet.dir/depend:
-	cd "/home/kida/Documents/data structures/SortedSet/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/kida/Documents/data structures/SortedSet" "/home/kida/Documents/data structures/SortedSet" "/home/kida/Documents/data structures/SortedSet/cmake-build-debug" "/home/kida/Documents/data structures/SortedSet/cmake-build-debug" "/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles/SortedSet.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet" "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet" "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug" "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug" "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles/SortedSet.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/SortedSet.dir/depend
 

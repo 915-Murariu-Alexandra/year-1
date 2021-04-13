@@ -15,33 +15,29 @@ if [ ! -d "$D" ]; then
 fi
 declare -i WC
 declare -i nr
-STATE=""
-while true
+declare -i lenS
+declare -i lenSTATE
+declare S
+declare STATE
+while true {
 do
 	nr=$((nr+1))
-	S=""
-	find $D | while read P
+	lenS=0
+	while read P
 	do
 		if [ -f $P ]; then
-			if !(grep -c ".swp" "$P"); then
+			if !(grep -q -c ".swp" "$P"); then
 				WC=`grep -o '\b[aeiou].*[aeiou]\b' $P | wc -w`
-				echo wc for $P is $WC
 			fi
 		fi
-		S="$S $WC"
-		echo $P
-		echo S is $S
-	done
-	len1=${#S}
-	echo len1 is $len1
-	len2=${#STATE}
-	echo len2 is $len2
-	if [ "$STATE" != "" ] && [ "$S" != "$STATE" ] && [ $nr -ge 4 ] && [ $len1 -eq $len2 ]; then
-		echo S issssssss $S
-		echo State issssssssss $STATE
-		echo "A word was added"
+		lenS=$((lenS+WC))
+	done <<< "$(find $D)"
+	if [ $nr -ge 3 ] && [ $lenS -ne $lenSTATE ]; then
+		echo "---------------------A word was added"
+	else
+		echo "No new words were added"
 	fi
-	STATE=$S
-	#echo state is $STATE
+	lenSTATE=$lenS
 	sleep 5
-done 
+done
+}

@@ -29,6 +29,9 @@ class Console:
         print("13. Make a copy of the graph.")
         print("14. Create a random graph.")
         print("15. Write the graph to a text file.")
+        print("16. Get the shortest path between two vertices.")
+        print("17. Get the strongly connected components.")
+        print("18. Biconnected components")
         print("x. Exit the application.")
 
     def read_option(self):
@@ -78,6 +81,15 @@ class Console:
             return 0
         elif option == "15":
             self.write_to_file()
+            return 0
+        elif option == "16":
+            self.shortest_path()
+            return 0
+        elif option == "17":
+            self.strongly_connected_components()
+            return 0
+        elif option == "18":
+            self.biconnected_components()
             return 0
         elif option == "x":
             return 1
@@ -210,6 +222,18 @@ class Console:
             print(ex)
             return
 
+    def shortest_path(self):
+        node_1 = input("Please input the start vertex from the edge.")
+        node_2 = input("Please input the end vertex from the edge.")
+        try:
+            int(node_1)
+            int(node_2)
+        except ValueError:
+            print("The nodes and cost should be integers. Please try again!")
+            return
+        result = self._graph.shortest_path(int(node_1), int(node_2))
+        print("The minimum length is " + str(result[0]) + " and the path is " + str(result[1]))
+
     def add_node(self):
         node = input("Please input the node you wish to add.")
         try:
@@ -273,3 +297,10 @@ class Console:
         h = self._graph.random_graph(int(n), int(m))
         print(str(h))
         h.write_to_file(file_name)
+
+    def strongly_connected_components(self):
+        print(self._graph.kosaraju())
+
+    def biconnected_components(self):
+        self._graph.BCC()
+        print(self._graph.count)

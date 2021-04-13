@@ -1,3 +1,3 @@
-/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/kida/Documents/data structures/SortedSet/cmake-build-debug/CMakeFiles/SortedSet.dir
+/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug/CMakeFiles/SortedSet.dir

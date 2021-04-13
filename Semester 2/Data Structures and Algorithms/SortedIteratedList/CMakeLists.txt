@@ -1,0 +1,1 @@
+add_executable(SortedIteratedList App.cpp ExtendedTest.cpp ListIterator.cpp SortedIteratedList.cpp ShortTest.cpp)

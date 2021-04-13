@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/kida/Documents/data structures/SortedSet/." 
+CXX_INCLUDES = -I"/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/." 
 

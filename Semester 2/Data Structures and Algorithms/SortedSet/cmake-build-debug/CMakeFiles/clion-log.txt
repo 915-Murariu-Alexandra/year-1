@@ -1,6 +1,6 @@
-/app/extra/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/home/kida/Documents/data structures/SortedSet"
--- The C compiler identification is GNU 10.2.0
--- The CXX compiler identification is GNU 10.2.0
+/home/kida/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.7717.62/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet"
+-- The C compiler identification is GNU 9.3.0
+-- The CXX compiler identification is GNU 9.3.0
 -- Check for working C compiler: /usr/bin/cc
 -- Check for working C compiler: /usr/bin/cc - works
 -- Detecting C compiler ABI info
@@ -15,4 +15,4 @@
 -- Detecting CXX compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/kida/Documents/data structures/SortedSet/cmake-build-debug
+-- Build files have been written to: /home/kida/year-1/Semester 2/Data Structures and Algorithms/SortedSet/cmake-build-debug

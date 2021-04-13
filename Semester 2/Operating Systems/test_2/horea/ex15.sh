@@ -8,7 +8,7 @@ awk -F: '{print $1}' passwd.fake >> users_passwd.txt
 while read -r line
 do
 	touch $line.txt
-	echo $line
+	grep "$line" passwd.fake | awk -F: '{print $6}' > $line.txt
 done < users_passwd.txt
 
 
