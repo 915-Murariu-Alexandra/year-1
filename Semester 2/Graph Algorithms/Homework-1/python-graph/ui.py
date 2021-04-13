@@ -32,6 +32,7 @@ class Console:
         print("16. Get the shortest path between two vertices.")
         print("17. Get the strongly connected components.")
         print("18. Biconnected components")
+        print("19. Wolf cabbage goat")
         print("x. Exit the application.")
 
     def read_option(self):
@@ -90,6 +91,9 @@ class Console:
             return 0
         elif option == "18":
             self.biconnected_components()
+            return 0
+        elif option == "19":
+            self.wcg()
             return 0
         elif option == "x":
             return 1
@@ -304,3 +308,33 @@ class Console:
     def biconnected_components(self):
         self._graph.BCC()
         print(self._graph.count)
+
+    def wcg(self):
+        g = self.read_from_file()
+        ans = g.shortest_path(1, 2)
+        print("F -> Farmer")
+        print("W -> Wolf")
+        print("G -> Goat")
+        print("C -> Cabbage")
+        print("The shortest path is " + str(ans[0]))
+        for state in ans[1]:
+            if state == 1:
+                print("WGCF |")
+            elif state == 2:
+                print("     | WGCF")
+            elif state == 3:
+                print("WCF  | G")
+            elif state == 4:
+                print("   G | WCF")
+            elif state == 5:
+                print("WGF  | C")
+            elif state == 6:
+                print("    C | WGF")
+            elif state == 7:
+                print(" GCF | W")
+            elif state == 8:
+                print("   W | GCF")
+            elif state == 9:
+                print("  GF | WC")
+            elif state == 10:
+                print("  WC | GF")
