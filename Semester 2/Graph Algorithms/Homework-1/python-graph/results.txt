@@ -1,0 +1,11 @@
+graph1k
+    1-100: The minimum length is 6 and the path is [1, 5, 487, 175, 699, 624, 100]
+    100-1: The minimum length is 5 and the path is [100, 416, 354, 865, 109, 1]
+
+graph10k:
+    1-100: The minimum length is 8 and the path is [1, 7317, 4118, 2404, 690, 1494, 739, 4722, 100]
+    100-1: The minimum length is 7 and the path is [100, 5568, 2781, 1451, 4997, 528, 4260, 1]
+
+graph100k:
+    1-100: The minimum length is 8 and the path is [1, 17024, 27471, 14969, 3075, 4156, 32753, 14973, 100]
+    100-1: The minimum length is 8 and the path is [100, 44340, 54527, 6606, 53263, 95930, 98655, 58288, 1]

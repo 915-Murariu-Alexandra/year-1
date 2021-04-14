@@ -318,8 +318,13 @@ class Graph:
         return h
 
     def shortest_path(self, start, end):
-        y = -1
-        visited = [end]
+        """
+        Function that calculates the shortest path between two vertices
+        :param start: the starting vertex
+        :param end: the ending vertex
+        :return: the length and path
+        """
+        visited = {end}
         queue = [end]
         dist_dictionary = {end: 0}
         next_dictionary = {}
@@ -329,7 +334,7 @@ class Graph:
                 for y in self.parse_inbound_edges(x):
                     if y not in visited:
                         queue.append(y)
-                        visited.append(y)
+                        visited.add(y)
                         dist_dictionary[y] = dist_dictionary[x] + 1
                         next_dictionary[y] = x
                         #print(queue)
@@ -345,16 +350,25 @@ class Graph:
         return dist_dictionary[start], path
 
     def DFS(self, x, visited=[], processed=[]):
-        try:
+        """
+        Function that performs a depth first search
+        :param x: the node that is currently analyzed
+        :param visited: the list of visited nodes
+        :param processed: the list of processed nodes
+        :return: -
+        """
+        if x in self._dict_out.keys():
             for y in self.parse_outbound_edges(x):
                 if y not in visited:
                     visited.append(y)
-                    self.DFS(y)
-        except Exception:
-            return
+                    self.DFS(y, visited, processed)
         processed.append(x)
 
     def kosaraju(self):
+        """
+        Function that determines the strongly connected components of a graph
+        :return: dictionary of strongly connected components (keys are nodes, values are the indices of the components)
+        """
         processed = []
         visited = []
         for s in self.parse_vertices():
@@ -368,19 +382,20 @@ class Graph:
         while not len(processed) == 0:
             s = processed.pop()
             if s not in visited:
-                c = c + 1
+                c += 1
                 comp[s] = c
                 q.append(s)
                 visited.append(s)
                 while len(q) != 0:
                     x = q.pop()
-                    if x in self._dict_in.keys():
+                    try:
                         for y in self.parse_inbound_edges(x):
                             if y not in visited:
-                                visited.append(y)
-                                q.append(y)
-                                comp[y] = c
-
+                                visited.append(int(y))
+                                q.append(int(y))
+                                comp[int(y)] = c
+                    except Exception:
+                        continue
         return comp
 
     '''A recursive function that finds and prints strongly connected
@@ -393,6 +408,18 @@ class Graph:
         st -- >> To store visited edges'''
 
     def BCCUtil(self, u, parent, low, disc, st):
+        """
+        A recursive function that finds and prints strongly connected
+        components using DFS traversal
+        :param u: The vertex to be visited next
+        :param parent: the parent of the vertex
+        :param low: earliest visited vertex (the vertex with minimum
+                   discovery time) that can be reached from subtree
+                   rooted with current vertex
+        :param disc: Stores discovery times of visited vertices
+        :param st: To store visited edges
+        :return:-
+        """
 
         # Count of children in current node
         children = 0
@@ -437,7 +464,10 @@ class Graph:
     # The function to do DFS traversal.
     # It uses recursive BCCUtil()
     def BCC(self):
-
+        """
+        Function that finds the number of biconnected components in the graph
+        :return: -
+        """
         # Initialize disc and low, and parent arrays
         disc = [-1] * (self._nr_of_vertices)
         low = [-1] * (self._nr_of_vertices)
