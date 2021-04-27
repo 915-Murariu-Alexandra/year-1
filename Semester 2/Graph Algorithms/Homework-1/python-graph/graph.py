@@ -1,7 +1,9 @@
 import copy
+import math
 import random
 from collections import defaultdict
 
+INFINITY = math.inf
 
 class Graph:
     """
@@ -347,7 +349,10 @@ class Graph:
             y = next_dictionary[x]
             x = y
             path.append(x)
-        return dist_dictionary[start], path
+        if start in dist_dictionary:
+            return dist_dictionary[start], path
+        else:
+            raise Exception("No path")
 
     def DFS(self, x, visited=[], processed=[]):
         """
@@ -397,15 +402,6 @@ class Graph:
                     except Exception:
                         continue
         return comp
-
-    '''A recursive function that finds and prints strongly connected
-        components using DFS traversal
-        u --> The vertex to be visited next
-        disc[] --> Stores discovery times of visited vertices
-        low[] -- >> earliest visited vertex (the vertex with minimum
-                   discovery time) that can be reached from subtree
-                   rooted with current vertex
-        st -- >> To store visited edges'''
 
     def BCCUtil(self, u, parent, low, disc, st):
         """
@@ -487,3 +483,71 @@ class Graph:
 
                 while st:
                     w = st.pop()
+
+    def floyd_warshall(self, x, y):
+        d = [[math.inf for i in range(self._nr_of_vertices)] for j in range(self._nr_of_vertices)]
+        p = [[-1 for i in range(self._nr_of_vertices)] for j in range(self._nr_of_vertices)]
+        for i in range(self._nr_of_vertices):
+            d[i][i] = 0
+        for key, value in self._dict_cost.items():
+            d[key[0]][key[1]] = value
+
+        for i in range(self._nr_of_vertices):
+            for j in range(self._nr_of_vertices):
+                if i != j and d[i][j] != math.inf:
+                    p[i][j] = i
+        print(d)
+        #print(p)
+        print("Intermediate matrices: ")
+        for k in range(self._nr_of_vertices):
+            for i in range(self._nr_of_vertices):
+                for j in range(self._nr_of_vertices):
+                    if d[i][j] > d[i][k] + d[k][j]:
+                        d[i][j] = d[i][k] + d[k][j]
+                        p[i][j] = p[k][j]
+            print("k = " + str(k))
+            print("p = ")
+            for line in p:
+                print(line)
+            print("d = ")
+            for line in d:
+                print(line)
+        path = []
+        cost = p[x][y]
+        start = x
+        end = y
+        path.append(cost)
+        if d[start][end] == math.inf:
+            raise Exception("No path")
+        elif start == end:
+            raise Exception("Same node")
+        while cost != x:
+            y = cost
+            cost = p[x][y]
+            path.insert(0, cost)
+        path.append(end)
+        return d[start][end], path
+
+    '''
+        def floyd_warshall(self, x, y):
+            w = {}
+            f = {}
+            for i in range(self._nr_of_vertices):
+                for j in range(self._nr_of_vertices):
+                    if i == j:
+                        w[(i, j)] = 0
+                    elif (i, j) in self._dict_cost.keys():
+                        w[(i, j)] = self._dict_cost[(i, j)]
+                        f[(i, j)] = j
+                    else:
+                        w[(i, j)] = INFINITY
+
+            for k in range(self._nr_of_vertices):
+                for i in range(self._nr_of_vertices):
+                    for j in range(self._nr_of_vertices):
+                        if w[(i, j)] > w[(i, k)] + w[(k, j)]:
+                            w[(i, j)] = w[(i, k)] + w[(k, j)]
+                            f[(i, j)] = f[(i, k)]
+
+            return w[(x, y)], f
+    '''

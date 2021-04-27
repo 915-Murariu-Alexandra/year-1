@@ -1,3 +1,4 @@
+import math
 import random
 
 from graph import Graph
@@ -33,6 +34,7 @@ class Console:
         print("17. Get the strongly connected components.")
         print("18. Biconnected components")
         print("19. Wolf cabbage goat")
+        print("20. Floyd Warshall")
         print("x. Exit the application.")
 
     def read_option(self):
@@ -94,6 +96,9 @@ class Console:
             return 0
         elif option == "19":
             self.wcg()
+            return 0
+        elif option == "20":
+            self.floyd_warshall()
             return 0
         elif option == "x":
             return 1
@@ -235,8 +240,29 @@ class Console:
         except ValueError:
             print("The nodes and cost should be integers. Please try again!")
             return
-        result = self._graph.shortest_path(int(node_1), int(node_2))
-        print("The minimum length is " + str(result[0]) + " and the path is " + str(result[1]))
+        try:
+            result = self._graph.shortest_path(int(node_1), int(node_2))
+            print("The minimum length is " + str(result[0]) + " and the path is " + str(result[1]))
+        except Exception as ex:
+            print(ex)
+
+    def floyd_warshall(self):
+        node_1 = input("Please input the start vertex.")
+        node_2 = input("Please input the end vertex.")
+        try:
+            int(node_1)
+            int(node_2)
+        except ValueError:
+            print("The nodes and cost should be integers. Please try again!")
+            return
+        try:
+            result = self._graph.floyd_warshall(int(node_1), int(node_2))
+            if result[0] == math.inf:
+                print("There is no walk.")
+            else:
+                print("The minimum cost walk is " + str(result[0]) + " and the path is " + str(result[1]))
+        except Exception as ex:
+            print(ex)
 
     def add_node(self):
         node = input("Please input the node you wish to add.")

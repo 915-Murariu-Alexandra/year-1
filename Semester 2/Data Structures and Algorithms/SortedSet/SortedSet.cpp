@@ -117,4 +117,5 @@ int SortedSet::get_position(TComp elem) {
     }
     return -1;
 }
+
 // Best case: Theta(1), Worst case: Theta(log2(nrElems)) => Total complexity: O(log2(nrElems))
