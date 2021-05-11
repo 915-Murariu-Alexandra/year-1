@@ -35,6 +35,8 @@ class Console:
         print("18. Biconnected components")
         print("19. Wolf cabbage goat")
         print("20. Floyd Warshall")
+        print("21. Verify if the graph is a DAG")
+        print("22. Find the highest cost path between two vertices")
         print("x. Exit the application.")
 
     def read_option(self):
@@ -99,6 +101,12 @@ class Console:
             return 0
         elif option == "20":
             self.floyd_warshall()
+            return 0
+        elif option == "21":
+            self.verify_dag()
+            return 0
+        elif option == "22":
+            self.highest_cost_path()
             return 0
         elif option == "x":
             return 1
@@ -331,9 +339,23 @@ class Console:
     def strongly_connected_components(self):
         print(self._graph.kosaraju())
 
+    def verify_dag(self):
+        print(self._graph.is_dag())
+
     def biconnected_components(self):
         self._graph.BCC()
         print(self._graph.count)
+
+    def highest_cost_path(self):
+        node_1 = input("Please input the start vertex.")
+        node_2 = input("Please input the end vertex.")
+        try:
+            int(node_1)
+            int(node_2)
+        except ValueError:
+            print("The nodes and cost should be integers. Please try again!")
+            return
+        print(self._graph.highest_cost_path(int(node_1), int(node_2)))
 
     def wcg(self):
         g = self.read_from_file()

@@ -551,3 +551,52 @@ class Graph:
 
             return w[(x, y)], f
     '''
+    def toposortalg(self):
+        sorted = []
+        fullyProcessed = set()
+        inProcess = set()
+        for x in self._list_of_nodes:
+            if x not in fullyProcessed:
+                ok = self.toposortdfs(x, sorted, fullyProcessed, inProcess)
+                if not ok:
+                    sorted.clear()
+                    return False, sorted
+        return True, sorted
+
+    def toposortdfs(self, x, sorted, fullyProcessed, inProcess):
+        inProcess.add(x)
+        if x in self._dict_in:
+            for y in self.parse_inbound_edges(x):
+                if y in inProcess:
+                    return False
+                elif y not in fullyProcessed:
+                    ok = self.toposortdfs(y, sorted, fullyProcessed, inProcess)
+                    if not ok:
+                        return False
+        inProcess.remove(x)
+        sorted.append(x)
+        fullyProcessed.add(x)
+        return True
+
+    def is_dag(self):
+        return self.toposortalg()
+
+    def highest_cost_path(self, c, z):
+        dag_answer = self.is_dag()
+        if not dag_answer[0]:
+            return -1
+        dist = [-math.inf for i in range(self._nr_of_vertices)]
+        dist[c] = 0
+
+        for u in dag_answer[1]:
+            if u == z:
+                break
+            if u in self._dict_in:
+                for v in self.parse_inbound_edges(u):
+                    if dist[u] < (dist[v] + self._dict_cost[(v, u)]):
+                        dist[u] = dist[v] + self._dict_cost[(v, u)]
+            if u in self._dict_out:
+                for v in self.parse_outbound_edges(u):
+                    if dist[v] < (dist[u] + self._dict_cost[(u, v)]):
+                        dist[v] = dist[u] + self._dict_cost[(u, v)]
+        return dist[z]
