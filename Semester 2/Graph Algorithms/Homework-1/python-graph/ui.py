@@ -1,5 +1,6 @@
 import math
 import random
+from copy import deepcopy
 
 from graph import Graph
 
@@ -37,6 +38,10 @@ class Console:
         print("20. Floyd Warshall")
         print("21. Verify if the graph is a DAG")
         print("22. Find the highest cost path between two vertices")
+        print("23. Topological sort")
+        print("24. Number of distinct paths")
+        print("25. Number of distinct minimum cost paths and their cost")
+        print("26. Inorder + Preorder => Postorder")
         print("x. Exit the application.")
 
     def read_option(self):
@@ -107,6 +112,18 @@ class Console:
             return 0
         elif option == "22":
             self.highest_cost_path()
+            return 0
+        elif option == "23":
+            self.topological_sort()
+            return 0
+        elif option == "24":
+            self.distinct_paths()
+            return 0
+        elif option == "25":
+            self.distinctMinCostPaths()
+            return 0
+        elif option == "26":
+            self.printPostOrder_args()
             return 0
         elif option == "x":
             return 1
@@ -356,6 +373,105 @@ class Console:
             print("The nodes and cost should be integers. Please try again!")
             return
         print(self._graph.highest_cost_path(int(node_1), int(node_2)))
+
+    def topological_sort(self):
+        dag_answer = self._graph.is_dag()
+        if not dag_answer[0]:
+            print("This is not a DAG")
+            return
+        print(dag_answer[1])
+
+    def distinct_paths(self):
+        dp = [0 for i in range(self._graph.get_nr_of_vertices())]
+        src = int(input("Source: "))
+        dest = int(input("Destination: "))
+        dp[dest] = 1
+        arr = self._graph.sortGraph()
+        if arr == []:
+            print("Not a DAG")
+            return
+        for i in reversed(arr):
+            if i in self._graph.get_dict_out():
+                for j in self._graph.parse_outbound_edges(i):
+                    dp[i] = dp[i] + dp[j]
+        print("Number of distinct paths: ", dp[src])
+
+    def distinctMinCostPaths(self):
+        dp = [[0, 0] for i in range(self._graph.get_nr_of_vertices()+1)]
+        src = int(input("Source: "))
+        dest = int(input("Destination: "))
+        dp[dest] = [0, 1]
+        arr = self._graph.sortGraph()
+        if arr == []:
+            print("Not a DAG")
+            return
+        where1 = where2 = -1
+        for i in arr:
+            if i == src:
+                where1 = arr.index(i)
+            if i == dest:
+                where2 = arr.index(i)
+        for i in range(where2-1, where1-1, -1):
+            node = arr[i]
+            dp[node] = [-99999, 1]
+            if node in self._graph.get_dict_out().keys():
+                for x in self._graph.parse_outbound_edges(node):
+                    if dp[x][0] != -99999:
+                        if dp[node][0] == -99999 or dp[node][0] > dp[x][0] + self._graph.get_cost(node, x):
+                            dp[node] = [dp[x][0] + self._graph.get_cost(node, x), dp[x][1]]
+                        elif dp[x][0] + self._graph.get_cost(node, x) == dp[node][0]:
+                            dp[node][1] += dp[x][1]
+        print("Min cost: ", dp[src][0])
+        if dp[src][0] != 0 and dp[src][1] == 0:
+            print("Number of paths: ", dp[src][1] + 1)
+        elif dp[src][0] == 0 and dp[src][1] == 0:
+            print("no path")
+        else:
+            print("Number of paths: ", dp[src][1])
+        return
+
+    def search(self, arr, x, n):
+
+        for i in range(n):
+            if (arr[i] == x):
+                return i
+
+        return -1
+
+    def printPostOrder_args(self):
+        n = int(input("Number of vertices: "))
+        in_order = input("Inorder: ") # {4, 2, 5, 1, 3, 6}
+        pre_order = input("Preorder: ") # {1, 2, 4, 5, 3, 6}
+        in_order_split = in_order.split()
+        pre_order_split = pre_order.split()
+        In = []
+        pre = []
+        for i in range(n):
+            In.append(in_order_split[i])
+            pre.append(pre_order_split[i])
+        self.printPostOrder(In, pre, n)
+
+    def printPostOrder(self, In, pre, n):
+        # The first element in pre[] is always
+        # root, search it in in[] to find left
+        # and right subtrees
+
+        root = self.search(In, pre[0], n)
+
+        # If left subtree is not empty,
+        # print left subtree
+        if (root != 0):
+            self.printPostOrder(In, pre[1:n], root)
+
+        # If right subtree is not empty,
+        # print right subtree
+        if (root != n - 1):
+            self.printPostOrder(In[root + 1: n],
+                           pre[root + 1: n],
+                           n - root - 1)
+
+        # Print root
+        print(pre[0], end=" ")
 
     def wcg(self):
         g = self.read_from_file()

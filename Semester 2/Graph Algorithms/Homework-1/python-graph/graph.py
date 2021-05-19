@@ -600,3 +600,30 @@ class Graph:
                     if dist[v] < (dist[u] + self._dict_cost[(u, v)]):
                         dist[v] = dist[u] + self._dict_cost[(u, v)]
         return dist[z]
+
+    def sortGraph(self):
+        sortedGraph = []
+        fullyProcessed = set()
+        inProcess = set()
+        for x in self.parse_vertices():
+            if x not in fullyProcessed:
+                ok = self.TopoSortDFS(x, sortedGraph, fullyProcessed, inProcess)
+                if not ok:
+                    sortedGraph = []
+                    return sortedGraph
+        return sortedGraph
+
+    def TopoSortDFS(self, x, sortedGraph, fullyProcessed, inProcess):
+        inProcess.add(x)
+        if x in self._dict_in.keys():
+            for y in self.parse_inbound_edges(x):
+                if y in inProcess:
+                    return False
+                if y not in fullyProcessed:
+                    ok = self.TopoSortDFS(y, sortedGraph, fullyProcessed, inProcess)
+                    if not ok:
+                        return False
+        inProcess.remove(x)
+        sortedGraph.append(x)
+        fullyProcessed.add(x)
+        return True
