@@ -5,6 +5,7 @@ from collections import defaultdict
 
 INFINITY = math.inf
 
+
 class Graph:
     """
     Class for the bidirectional graph
@@ -28,6 +29,10 @@ class Graph:
         self._dict_cost = dict_cost
         self.Time = 0
         self.count = 0
+        self.min = 10000
+        self.j_min = 10000
+        self.visited = [0 for i in range(self._nr_of_vertices)]
+        self.edges = []
 
     def copy_graph(self):
         """
@@ -232,6 +237,7 @@ class Graph:
             node_1 = int(content[index].split()[0])
             node_2 = int(content[index].split()[1])
             cost = int(content[index].split()[2])
+            self.edges.append([node_1, node_2, cost])
             self.graph[node_1].append(node_2)
             self.graph[node_2].append(node_1)
             if node_2 not in self._dict_in.keys():
@@ -339,7 +345,7 @@ class Graph:
                         visited.add(y)
                         dist_dictionary[y] = dist_dictionary[x] + 1
                         next_dictionary[y] = x
-                        #print(queue)
+                        # print(queue)
             except Exception:
                 continue
         x = start
@@ -497,7 +503,7 @@ class Graph:
                 if i != j and d[i][j] != math.inf:
                     p[i][j] = i
         print(d)
-        #print(p)
+        # print(p)
         print("Intermediate matrices: ")
         for k in range(self._nr_of_vertices):
             for i in range(self._nr_of_vertices):
@@ -551,6 +557,7 @@ class Graph:
 
             return w[(x, y)], f
     '''
+
     def toposortalg(self):
         sorted = []
         fullyProcessed = set()
@@ -627,3 +634,128 @@ class Graph:
         sortedGraph.append(x)
         fullyProcessed.add(x)
         return True
+
+    def TSP_greedy(self, node):
+        path = []
+        self.min = 10000
+        self.j_min = 10000
+        self.visited.clear()
+        path.clear()
+        path = [0 for i in range(self._nr_of_vertices + 1)]
+        self.visited = [0 for i in range(self._nr_of_vertices)]
+        path[0] = node
+        self.visited[node] = 1
+        count = 1
+        cost = 0
+        for i in range(self._nr_of_vertices - 1):
+            self.choose(path[count - 1])
+            print("Connected (" + str(path[count - 1]) + ", " + str(self.j_min) + ") of cost " + str(self.min))
+            path[count] = self.j_min
+            self.visited[self.j_min] = 1
+            count += 1
+            cost += self.min
+        cost += self.get_cost(path[self._nr_of_vertices - 1], node)
+        print("Path has cost " + str(cost) + " and is: ")
+        for i in range(self._nr_of_vertices):
+            print(str(path[i]), end=' ')
+        print(str(node))
+
+    def TSP_heuristic(self):
+        save_cost = 10000
+        save_path = [0 for i in range(self._nr_of_vertices + 1)]
+        path = []
+        for index in range(self._nr_of_vertices):
+            print("We start at point " + str(index))
+            self.min = 10000
+            self.j_min = 10000
+            self.visited.clear()
+            path.clear()
+            path = [0 for i in range(self._nr_of_vertices + 1)]
+            self.visited = [0 for i in range(self._nr_of_vertices)]
+            path[0] = index
+            self.visited[index] = 1
+            count = 1
+            cost = 0
+            for i in range(self._nr_of_vertices - 1):
+                self.choose(path[count - 1])
+                print("Connected (" + str(path[count - 1]) + ", " + str(self.j_min) + ") of cost " + str(self.min))
+                path[count] = self.j_min
+                self.visited[self.j_min] = 1
+                count += 1
+                cost += self.min
+            cost += self.get_cost(path[self._nr_of_vertices - 1], index)
+            print("Path has cost " + str(cost) + " and is: ")
+            for i in range(self._nr_of_vertices):
+                print(str(path[i]), end=' ')
+            print(str(index))
+            if cost < save_cost:
+                for i in range(self._nr_of_vertices):
+                    save_path[i] = path[i]
+                save_cost = cost
+        print("Shortest path starts at point " + str(save_path[0]) + ", has cost " + str(save_cost) + " and is:")
+        for i in range(self._nr_of_vertices):
+            print(str(save_path[i]), end=' ')
+        print(str(save_path[0]))
+        return
+
+    def TSP_sort(self):
+        self.edges.sort(key=lambda i: i[2])
+        save_cost = 10000
+        save_path = [[0, 0, 0] for i in range(self._nr_of_vertices + 1)]
+        path = []
+        for index in self.edges:
+            print("-----We start with edge " + str(index))
+            self.min = 10000
+            self.j_min = [10000, 10000, 10000]
+            self.visited.clear()
+            path.clear()
+            path = [[0, 0, 0] for i in range(self._nr_of_edges + 1)]
+            self.visited = [0 for i in range(self._nr_of_vertices)]
+            path[0] = index
+            self.visited[index[0]] = 1
+            self.visited[index[1]] = 1
+            count: int = 1
+            cost = index[2]
+            for i in range(self._nr_of_vertices - 2):
+                self.choose2(path[count - 1])
+                print("Connected (" + str(path[count - 1][1]) + ", " + str(self.j_min[1]) + ") of cost " + str(self.min))
+                path[count] = self.j_min
+                self.visited[self.j_min[0]] = 1
+                self.visited[self.j_min[1]] = 1
+                count += 1
+                cost += self.min
+            cost += self.get_cost(path[int(self._nr_of_vertices - 2)][1], index[0])
+            #cost += path[self._nr_of_edges - 1]
+            print("Path has cost " + str(cost) + " and is: ")
+            for i in range(self._nr_of_vertices - 1):
+                print(str(path[i]), end=' ')
+            print("[" + str(path[self._nr_of_vertices - 2][1]) + ", " + str(index[0]) + ", " + str(self.get_cost(path[self._nr_of_vertices - 2][1], index[0])) + "]")
+            if cost < save_cost:
+                for i in range(self._nr_of_vertices - 1):
+                    save_path[i] = path[i]
+                save_path[self._nr_of_vertices - 1] = [path[self._nr_of_vertices - 2][1], index[0], self.get_cost(path[self._nr_of_vertices - 2][1], index[0])]
+                save_cost = cost
+        print("Shortest path starts at point " + str(save_path[0][0]) + ", has cost " + str(save_cost) + " and is:")
+        for i in range(self._nr_of_vertices):
+            print(str(save_path[i]), end=' ')
+        print()
+        return
+
+    def choose(self, last):
+        self.min = 10000
+        self.j_min = -1
+        for j in range(self._nr_of_vertices):
+            if not self.visited[j]:
+                if self.get_cost(last, j) < self.min:
+                    self.min = self.get_cost(last, j)
+                    self.j_min = j
+
+    def choose2(self, last):
+        self.min = 10000
+        self.j_min = [-1, -1, -1]
+        for j in range(self._nr_of_vertices):
+            if not self.visited[j]:
+                if self.get_cost(last[1], j) < self.min:
+                    self.min = self.get_cost(last[1], j)
+                    self.j_min = [last[1], j, self.get_cost(last[1], j)]
+

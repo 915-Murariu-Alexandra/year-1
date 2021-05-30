@@ -42,6 +42,9 @@ class Console:
         print("24. Number of distinct paths")
         print("25. Number of distinct minimum cost paths and their cost")
         print("26. Inorder + Preorder => Postorder")
+        print("27. Heuristic TSP based on the edge of minimum cost from each vertex")
+        print("28. Greedy TSP with starting vertex")
+        print("29. Heuristic TSP based on the sorting of edges")
         print("x. Exit the application.")
 
     def read_option(self):
@@ -125,6 +128,16 @@ class Console:
         elif option == "26":
             self.printPostOrder_args()
             return 0
+        elif option == "27":
+            self.tsp()
+            return 0
+        elif option == "28":
+            self.tsp_greedy()
+            return 0
+        elif option == "29":
+            self.tsp_sort()
+            return 0
+
         elif option == "x":
             return 1
         else:
@@ -373,6 +386,23 @@ class Console:
             print("The nodes and cost should be integers. Please try again!")
             return
         print(self._graph.highest_cost_path(int(node_1), int(node_2)))
+
+    def tsp(self):
+        self._graph.TSP_heuristic()
+        return
+
+    def tsp_sort(self):
+        self._graph.TSP_sort()
+        return
+
+    def tsp_greedy(self):
+        node = input("Please input the start vertex.")
+        try:
+            int(node)
+        except ValueError:
+            print("The node should be an integer. Please try again!")
+            return
+        self._graph.TSP_greedy(int(node))
 
     def topological_sort(self):
         dag_answer = self._graph.is_dag()
